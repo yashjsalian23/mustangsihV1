@@ -1,35 +1,180 @@
 <%- include("partials/header") %>
+    <div class="container">
+        <form class="form-horizontal" action="/register" method="POST">
+            <h2>Sign Up </h2>
+            <div class="form-group">
+                <label  class="col-sm-3 control-label">Username: </label>
+                <div class="col-sm-9">
+                    <input type="text"  placeholder="Username" name="username" class="form-control" required autofocus>
+                    <!-- <span class="help-block">Last Name, First Name, eg.: Smith, Harry</span> -->
+                </div>
+            </div>
+            <div class="form-group">
+                <label  class="col-sm-3 control-label">Password: </label>
+                <div class="col-sm-9">
+                    <input type="password" placeholder="Password" name="password" class="form-control" required>
+                    <!-- <span class="help-block">Last Name, First Name, eg.: Smith, Harry</span> -->
+                </div>
+            </div>
+            <div class="form-group">
+                <label  class="col-sm-3 control-label">Company Name: </label>
+                <div class="col-sm-9">
+                    <input type="text"  placeholder="Comapny Name" name="basic[companyName]" class="form-control" required >
+                    <!-- <span class="help-block">Last Name, First Name, eg.: Smith, Harry</span> -->
+                </div>
+            </div>
+            <div class="form-group">
+                <label  class="col-sm-3 control-label">CEO's Name: </label>
+                <div class="col-sm-9">
+                    <input type="text"  placeholder="CEO's Name" name="basic[ceoName]" class="form-control" required>
+                    <!-- <span class="help-block">Last Name, First Name, eg.: Smith, Harry</span> -->
+                </div>
+            </div>
+            <div class="form-group">
+                <label  class="col-sm-3 control-label">Total Number of Employees: </label>
+                <div class="col-sm-9">
+                    <input type="number" placeholder="Total Number of Employees" required name="basic[totalNumberOfEmployees]" class="form-control">
+                    <!-- <span class="help-block">Last Name, First Name, eg.: Smith, Harry</span> -->
+                </div>
+            </div>
+            <div class="form-group">
+                <label  class="col-sm-3 control-label">Founding Date: </label>
+                <div class="col-sm-9">
+                    <input type="date" placeholder="Founding Date" name="basic[foundingDate]" class="form-control">
+                    <!-- <span class="help-block">Last Name, First Name, eg.: Smith, Harry</span> -->
+                </div>
+            </div>
+            <div class="form-group">
+                <label  class="col-sm-3 control-label">Logo: </label>
+                <div class="col-sm-9">
+                    <input type="text" placeholder="Logo" name="basic[logo]" class="form-control" required>
+                    <!-- <span class="help-block">Last Name, First Name, eg.: Smith, Harry</span> -->
+                </div>
+            </div>
+            <div class="form-group">
+                <label  class="col-sm-3 control-label">Short Description: </label>
+                <div class="col-sm-9">
+                    <input type="text" placeholder="Short Description" name="description[short]" class="form-control" required>
+                    <!-- <span class="help-block">Last Name, First Name, eg.: Smith, Harry</span> -->
+                </div>
+            </div>
+            <div class="form-group">
+                <label  class="col-sm-3 control-label">Description: </label>
+                <div class="col-sm-9">
+                    <textarea placeholder="Description" rows="4" name="description[bio]" class="form-control" required></textarea>
+                    <!-- <span class="help-block">Last Name, First Name, eg.: Smith, Harry</span> -->
+                </div>
+            </div>
+            <div class="form-group">
+                <label  class="col-sm-3 control-label">Domain: </label>
+                <div class="col-sm-9">
+                    <input type="text" placeholder="Domain" name="domain" class="form-control" required>
+                    <span class="help-block">Ex: e-commernce, Food Delivery, Education, etc.</span>
+                </div>
+            </div>
+            <!-- <label  class="col-sm-3 control-label">Location: </label> -->
+            <div class="form-group">
+                <label  class="col-sm-3 control-label">City: </label>
+                <div class="col-sm-9">
+                    <input type="text" placeholder="City" name="location[city]" class="form-control" required>
+                    <!-- <span class="help-block">Last Name, First Name, eg.: Smith, Harry</span> -->
+                </div>
+            </div>
+            <div class="form-group">
+                <label  class="col-sm-3 control-label">State: </label>
+                <div class="col-sm-9">
+                    <input type="text" placeholder="State" name="location[state]" class="form-control" required>
+                    <!-- <span class="help-block">Last Name, First Name, eg.: Smith, Harry</span> -->
+                </div>
+            </div>
+            <div class="form-group">
+                <label  class="col-sm-3 control-label">Country: </label>
+                <div class="col-sm-9">
+                    <input type="text" placeholder="" name="location[country]" value="India" class="form-control" readonly>
+                    <!-- <span class="help-block">Last Name, First Name, eg.: Smith, Harry</span> -->
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="email" class="col-sm-3 control-label">Email: </label>
+                <div class="col-sm-9">
+                    <input type="email" placeholder="Email-id" required name="contact[email]" class="form-control">
+                </div>
+            </div>
+            <div class="form-group">
+                <label  class="col-sm-3 control-label">Website: </label>
+                <div class="col-sm-9">
+                    <input type="text" placeholder="Website" required name="contact[website]" class="form-control">
+                    <!-- <span class="help-block">Last Name, First Name, eg.: Smith, Harry</span> -->
+                </div>
+            </div>
+            <div class="form-group">
+                <label  class="col-sm-3 control-label">Phone: </label>
+                <div class="col-sm-9">
+                    <input type="number" placeholder="" name="contact[telephone]" required class="form-control" maxlength="12" minlength="12">
+                    <span class="help-block">Add 91</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label  class="col-sm-3 control-label">LinkedIn: </label>
+                <div class="col-sm-9">
+                    <input type="text" placeholder="LinkedIn" name="contact[linkedin]" class="form-control">
+                    <!-- <span class="help-block">Last Name, First Name, eg.: Smith, Harry</span> -->
+                </div>
+            </div>
+            <div class="form-group">
+                <label  class="col-sm-3 control-label">GitHub: </label>
+                <div class="col-sm-9">
+                    <input type="text" placeholder="GitHub" name="contact[github]" class="form-control">
+                    <!-- <span class="help-block">Last Name, First Name, eg.: Smith, Harry</span> -->
+                </div>
+            </div>
+            <div class="form-group">
+                <label  class="col-sm-3 control-label">Total Funds Raised: </label>
+                <div class="col-sm-9">
+                    <input type="number" placeholder="Total Funds Raised" name="funding[totalRaised]" required class="form-control" step="100000">
+                    <span class="help-block">In INR</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label  class="col-sm-3 control-label">Total Rounds: </label>
+                <div class="col-sm-9">
+                    <input type="number" placeholder="Total Rounds" name="funding[totalRounds]" max="6" min="0" class="form-control" step="1" required>
+                    <!-- <span class="help-block">In INR</span> -->
+                </div>
+            </div>
+            <div class="form-group">
+                <label  class="col-sm-3 control-label">Latest Round: </label>
+                <!-- <div class="col-sm-9">
+                    <input type="text" placeholder="Lastest Round" name="funding[latestRound]" class="form-control" required>
+                     <span class="help-block">Last Name, First Name, eg.: Smith, Harry</span> 
+                </div> -->
+                <div class="col-sm-9">
+                    <select  class="form-control" name="funding[latestRound]" required>
+                        <option>Seed round</option>
+                        <option>Angel round</option>
+                        <option>Series A</option>
+                        <option>Series B</option>
+                        <option>Series C</option>
+                        <option>Pre-public</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-9 col-sm-offset-3">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" required>I accept all the <a href="#">terms and condition</a>
+                        </label>
+                    </div>
+                </div>
+            </div> <!-- /.form-group -->
+            <div class="form-group">
+                <div class="col-sm-9 col-sm-offset-3">
+                    <button type="submit" class="btn btn-primary btn-block">Sign Up!</button>
+                </div>
+            </div>
+        </form> <!-- /form -->
+    </div> <!-- ./container -->
 
-    <h1>Register Page</h1>
-    <form action="/register" method="POST">
-        <input type="text" placeholder="USERNAME" name="username">
-        <input type="password" placeholder="PASSWORD" name="password">
-        <label>Basic info</label>
-        <input type="text" placeholder="COMPANY NAME" name="basic[companyName]">
-        <input type="text" placeholder="CEO'S NAME" name="basic[ceoName]">
-        <input type="number" placeholder="TOTAL EMP" name="basic[totalNumberOfEmployees]">
-        <input type="date" placeholder="FOUNDING DATE" name="basic[foundingDate]">
-        <input type="text" placeholder="LOGO" name="basic[logo]">
-        <input type="text" placeholder="DOMAIN" name="domain">
-        <label>Description</label>
-        <input type="text" placeholder="Short desc" name="description[short]">
-        <textarea placeholder="BIO" rows="4" cols="50" name="description[bio]"></textarea>
-        <label>contact</label>
-        <input type="email" placeholder="COMPANY EMAIL-ID" name="contact[email]">
-        <input type="text" placeholder="WEBSITE" name="contact[website]">
-        <input type="number" placeholder="Phone" name="contact[telephone]" >
-        <input type="text" placeholder="LINKEDIN" name="contact[linkedin]">
-        <input type="text" placeholder="GITHUB" name="contact[github]">
-        <label>Location</label>
-        <input type="text" placeholder="CITY" name="location[city]">
-        <input type="text" placeholder="STATE" name="location[state]">
-        <input type="text" placeholder="STATE" name="location[country]" value="India" readonly>
-        <label>Funding</label>
-        <input type="number" placeholder="TOTAL RAISED" name="funding[totalRaised]">
-        <input type="number" placeholder="TOTAL ROUNDS" name="funding[totalRounds]">
-        <input type="text" placeholder="LATEST ROUNDS" name="funding[latestRound]">
-        <input type="submit">
-    </form>
-    
 
 <%- include("partials/footer") %>
