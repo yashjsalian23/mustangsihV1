@@ -1,0 +1,18 @@
+<%- include("partials/header") %>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-2 col-md-2">
+            <img src="<%=user.logo%>" alt="LOGO" class="img-rounded img-responsive" />
+        </div>
+        <div class="col-sm-4 col-md-4">
+            <blockquote>
+                <p><%=user.companyName%></p> <small><cite title="Source Title"><%=user.location %>  <i class="glyphicon glyphicon-map-marker"></i></cite></small>
+            </blockquote>
+            <p> <i class="glyphicon glyphicon-envelope"></i> <%=user.email %>
+                <br
+                /> <i class="glyphicon glyphicon-globe"></i> <%=user.website %>
+                <br /> <i class="glyphicon glyphicon-gift"></i> January 30, 1974</p>
+        </div>
+    </div>
+</div>
+<%- include("partials/footer") %>

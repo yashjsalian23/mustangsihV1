@@ -50,8 +50,17 @@ app.get("/register", (req,res)=>{
 
 app.post("/register", (req,res)=>{
     console.log(req.body.username);
-	console.log(req.body.password);
-	User.register(new User({username:req.body.username}), req.body.password, (err, user)=>{
+    console.log(req.body.password);
+    let newUser =new User({
+        username: req.body.username,
+        basic: req.body.basic,
+        description: req.body.description,
+        domain: req.body.domain,
+        location: req.body.location,
+        contact: req.body.contact,
+        funding: req.body.funding
+    });
+	User.register(newUser, req.body.password, (err, user)=>{
 		if(err){
 			console.log("ERROR");
 			res.redirect("/register");
@@ -69,7 +78,14 @@ app.post("/login", passport.authenticate("local", {
 	failureRedirect:"/login"
 }) ,(req, res)=>{});
 
-
+app.get("/user/:id", (req,res)=>{
+    User.findById(req.params.id, (err, foundUser)=>{
+        if(err){
+            console.log("error in user profile");
+        }
+        res.render("userProfile.ejs", {user:foundUser});
+    });
+});
 var port = process.env.PORT || 3000;
 app.listen(port,  ()=> {
   console.log("Server Has Started!");

@@ -2,8 +2,32 @@
 
     <h1>Register Page</h1>
     <form action="/register" method="POST">
-        <input type="text" placeholder="username" name="username">
-        <input type="password" placeholder="password" name="password">
+        <input type="text" placeholder="USERNAME" name="username">
+        <input type="password" placeholder="PASSWORD" name="password">
+        <label>Basic info</label>
+        <input type="text" placeholder="COMPANY NAME" name="basic[companyName]">
+        <input type="text" placeholder="CEO'S NAME" name="basic[ceoName]">
+        <input type="number" placeholder="TOTAL EMP" name="basic[totalNumberOfEmployees]">
+        <input type="date" placeholder="FOUNDING DATE" name="basic[foundingDate]">
+        <input type="text" placeholder="LOGO" name="basic[logo]">
+        <input type="text" placeholder="DOMAIN" name="domain">
+        <label>Description</label>
+        <input type="text" placeholder="Short desc" name="description[short]">
+        <textarea placeholder="BIO" rows="4" cols="50" name="description[bio]"></textarea>
+        <label>contact</label>
+        <input type="email" placeholder="COMPANY EMAIL-ID" name="contact[email]">
+        <input type="text" placeholder="WEBSITE" name="contact[website]">
+        <input type="number" placeholder="Phone" name="contact[telephone]" >
+        <input type="text" placeholder="LINKEDIN" name="contact[linkedin]">
+        <input type="text" placeholder="GITHUB" name="contact[github]">
+        <label>Location</label>
+        <input type="text" placeholder="CITY" name="location[city]">
+        <input type="text" placeholder="STATE" name="location[state]">
+        <input type="text" placeholder="STATE" name="location[country]" value="India" readonly>
+        <label>Funding</label>
+        <input type="number" placeholder="TOTAL RAISED" name="funding[totalRaised]">
+        <input type="number" placeholder="TOTAL ROUNDS" name="funding[totalRounds]">
+        <input type="text" placeholder="LATEST ROUNDS" name="funding[latestRound]">
         <input type="submit">
     </form>
     
