@@ -1,7 +1,7 @@
-var mongoose=require("mongoose"),
+let mongoose=require("mongoose"),
 	passportLocalMongoose=require("passport-local-mongoose");
 
-var userSchema= new mongoose.Schema({
+let userSchema= new mongoose.Schema({
 	username:String,
     password:String,
     basic: {
@@ -32,6 +32,9 @@ var userSchema= new mongoose.Schema({
         totalRaised: Number,
         totalRounds: Number,
         latestRound: String
+    },
+    mentor: {
+        
     }
     
 });

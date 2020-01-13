@@ -1,18 +1,28 @@
 <%- include("partials/header") %>
-<div class="container">
-    <div class="row">
-        <div class="col-sm-2 col-md-2">
-            <img src="<%=user.logo%>" alt="LOGO" class="img-rounded img-responsive" />
-        </div>
-        <div class="col-sm-4 col-md-4">
-            <blockquote>
-                <p><%=user.companyName%></p> <small><cite title="Source Title"><%=user.location %>  <i class="glyphicon glyphicon-map-marker"></i></cite></small>
-            </blockquote>
-            <p> <i class="glyphicon glyphicon-envelope"></i> <%=user.email %>
-                <br
-                /> <i class="glyphicon glyphicon-globe"></i> <%=user.website %>
-                <br /> <i class="glyphicon glyphicon-gift"></i> January 30, 1974</p>
+<% include("../cssFiles/userProfile.css") %>
+    <div class="container">
+        <!-- <div class="row">
+            <div class="col-xs-12 col-sm-9"> 
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                  <h4 class="panel-title">User profile</h4>
+                  </div>
+                  <div class="panel-body">
+                    <div class="profile__avatar">
+                      <img src="https://bootdey.com/img/Content/avatar/avatar5.png" alt="...">
+                    </div>
+                    <div class="profile__header">
+                      <h4>Richard Roe <small>Administrator</small></h4>
+                      <p class="text-muted">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non nostrum odio cum repellat veniam eligendi rem cumque magnam autem delectus qui.
+                      </p>
+                      <p>
+                        <a href="#">bootdey.com</a>
+                      </p>
+                    </div>
+                  </div>
+                </div> -->
+                <h1>User Profile with name <%= user.username%></h1>
         </div>
     </div>
-</div>
 <%- include("partials/footer") %>
