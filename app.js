@@ -18,9 +18,15 @@ app.use(require("express-session")({
 	saveUninitialized: false
 }));
 passport.use(new localStrategy(User.authenticate()));
+passport.use(new localStrategy(Mentor.authenticate()));
 
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
+//  app.use(passport.initialize());
+//  app.use(passport.session());
+
+passport.serializeUser(Mentor.serializeUser());
+passport.deserializeUser(Mentor.deserializeUser());
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -64,7 +70,7 @@ app.post("/mentee/register", (req,res)=>{
 	User.register(newUser, req.body.password, (err, user)=>{
 		if(err){
 			console.log("ERROR");
-			res.redirect("/register");
+			res.redirect("/mentee/register");
 		}
 		else{
 			passport.authenticate("local")(req, res, ()=>{
@@ -76,7 +82,7 @@ app.post("/mentee/register", (req,res)=>{
 
 app.post("/mentee/login", passport.authenticate("local", {
 	successRedirect: "/",
-	failureRedirect:"/login"
+	failureRedirect:"/mentor/login"
 }) ,(req, res)=>{});
 
 app.get("/mentee/:id", (req,res)=>{
@@ -99,6 +105,29 @@ app.get("/mentee/logout", function(req, res){
 	req.logout();
 	res.redirect("/");
 });
+
+app.post("/mentor/register", (req,res)=>{
+        console.log(req.body.username);
+        console.log(req.body.password);
+        Mentor.register(new Mentor({username:req.body.username}), req.body.password, function(err, user){
+            if(err){
+                console.log(err);
+                res.redirect("/mentor/register");
+            }
+            else{
+                    passport.authenticate("local")(req, res, function(){
+                    res.redirect("/home");
+                });
+            }
+        });
+    });
+
+ app.post("/mentor/login", passport.authenticate("local", {
+        successRedirect: "/",
+        failureRedirect:"/mentor/login"
+    }) ,(req, res)=>{});
+        
+
 var port = process.env.PORT || 3000;
 app.listen(port,  ()=> {
   console.log("Server Has Started!");
