@@ -1,68 +1,68 @@
 <%- include("../partials/header") %>
     <div class="container">
         <form class="form-horizontal" action="/mentee/register" method="POST">
-            <h2>Sign Up </h2>
+            <h2>Register</h2>
             <div class="form-group">
                 <label  class="col-sm-3 control-label">Username: </label>
                 <div class="col-sm-9">
                     <input type="text"  placeholder="Username" name="username" class="form-control" required autofocus>
-                    <!-- <span class="help-block">Last Name, First Name, eg.: Smith, Harry</span> -->
+                    
                 </div>
             </div>
             <div class="form-group">
                 <label  class="col-sm-3 control-label">Password: </label>
                 <div class="col-sm-9">
                     <input type="password" placeholder="Password" name="password" class="form-control" required>
-                    <!-- <span class="help-block">Last Name, First Name, eg.: Smith, Harry</span> -->
+                    
                 </div>
             </div>
             <div class="form-group">
                 <label  class="col-sm-3 control-label">Company Name: </label>
                 <div class="col-sm-9">
                     <input type="text"  placeholder="Comapny Name" name="basic[companyName]" class="form-control" required >
-                    <!-- <span class="help-block">Last Name, First Name, eg.: Smith, Harry</span> -->
+                    
                 </div>
             </div>
             <div class="form-group">
                 <label  class="col-sm-3 control-label">CEO's Name: </label>
                 <div class="col-sm-9">
                     <input type="text"  placeholder="CEO's Name" name="basic[ceoName]" class="form-control" required>
-                    <!-- <span class="help-block">Last Name, First Name, eg.: Smith, Harry</span> -->
+                    
                 </div>
             </div>
             <div class="form-group">
                 <label  class="col-sm-3 control-label">Total Number of Employees: </label>
                 <div class="col-sm-9">
                     <input type="number" placeholder="Total Number of Employees" required name="basic[totalNumberOfEmployees]" class="form-control">
-                    <!-- <span class="help-block">Last Name, First Name, eg.: Smith, Harry</span> -->
+                    
                 </div>
             </div>
             <div class="form-group">
                 <label  class="col-sm-3 control-label">Founding Date: </label>
                 <div class="col-sm-9">
                     <input type="date" placeholder="Founding Date" name="basic[foundingDate]" class="form-control">
-                    <!-- <span class="help-block">Last Name, First Name, eg.: Smith, Harry</span> -->
+                    
                 </div>
             </div>
             <div class="form-group">
                 <label  class="col-sm-3 control-label">Logo: </label>
                 <div class="col-sm-9">
                     <input type="text" placeholder="Logo" name="basic[logo]" class="form-control" required>
-                    <!-- <span class="help-block">Last Name, First Name, eg.: Smith, Harry</span> -->
+                    
                 </div>
             </div>
             <div class="form-group">
                 <label  class="col-sm-3 control-label">Short Description: </label>
                 <div class="col-sm-9">
                     <input type="text" placeholder="Short Description" name="description[short]" class="form-control" required>
-                    <!-- <span class="help-block">Last Name, First Name, eg.: Smith, Harry</span> -->
+                    
                 </div>
             </div>
             <div class="form-group">
                 <label  class="col-sm-3 control-label">Description: </label>
                 <div class="col-sm-9">
                     <textarea placeholder="Description" rows="4" name="description[bio]" class="form-control" required></textarea>
-                    <!-- <span class="help-block">Last Name, First Name, eg.: Smith, Harry</span> -->
+                    
                 </div>
             </div>
             <div class="form-group">
@@ -72,26 +72,26 @@
                     <span class="help-block">Ex: e-commernce, Food Delivery, Education, etc.</span>
                 </div>
             </div>
-            <!-- <label  class="col-sm-3 control-label">Location: </label> -->
+            
             <div class="form-group">
                 <label  class="col-sm-3 control-label">City: </label>
                 <div class="col-sm-9">
                     <input type="text" placeholder="City" name="location[city]" class="form-control" required>
-                    <!-- <span class="help-block">Last Name, First Name, eg.: Smith, Harry</span> -->
+                    
                 </div>
             </div>
             <div class="form-group">
                 <label  class="col-sm-3 control-label">State: </label>
                 <div class="col-sm-9">
                     <input type="text" placeholder="State" name="location[state]" class="form-control" required>
-                    <!-- <span class="help-block">Last Name, First Name, eg.: Smith, Harry</span> -->
+                    
                 </div>
             </div>
             <div class="form-group">
                 <label  class="col-sm-3 control-label">Country: </label>
                 <div class="col-sm-9">
                     <input type="text" placeholder="" name="location[country]" value="India" class="form-control" readonly>
-                    <!-- <span class="help-block">Last Name, First Name, eg.: Smith, Harry</span> -->
+                    
                 </div>
             </div>
             <div class="form-group">
@@ -104,7 +104,7 @@
                 <label  class="col-sm-3 control-label">Website: </label>
                 <div class="col-sm-9">
                     <input type="text" placeholder="Website" required name="contact[website]" class="form-control">
-                    <!-- <span class="help-block">Last Name, First Name, eg.: Smith, Harry</span> -->
+                    
                 </div>
             </div>
             <div class="form-group">
@@ -118,14 +118,14 @@
                 <label  class="col-sm-3 control-label">LinkedIn: </label>
                 <div class="col-sm-9">
                     <input type="text" placeholder="LinkedIn" name="contact[linkedin]" class="form-control">
-                    <!-- <span class="help-block">Last Name, First Name, eg.: Smith, Harry</span> -->
+                    
                 </div>
             </div>
             <div class="form-group">
                 <label  class="col-sm-3 control-label">GitHub: </label>
                 <div class="col-sm-9">
                     <input type="text" placeholder="GitHub" name="contact[github]" class="form-control">
-                    <!-- <span class="help-block">Last Name, First Name, eg.: Smith, Harry</span> -->
+                    
                 </div>
             </div>
             <div class="form-group">
@@ -136,27 +136,23 @@
                 </div>
             </div>
             <div class="form-group">
-                <label  class="col-sm-3 control-label">Total Rounds: </label>
-                <div class="col-sm-9">
-                    <input type="number" placeholder="Total Rounds" name="funding[totalRounds]" max="6" min="0" class="form-control" step="1" required>
-                    <!-- <span class="help-block">In INR</span> -->
-                </div>
-            </div>
-            <div class="form-group">
                 <label  class="col-sm-3 control-label">Latest Round: </label>
-                <!-- <div class="col-sm-9">
-                    <input type="text" placeholder="Lastest Round" name="funding[latestRound]" class="form-control" required>
-                     <span class="help-block">Last Name, First Name, eg.: Smith, Harry</span> 
-                </div> -->
+               
                 <div class="col-sm-9">
                     <select  class="form-control" name="funding[latestRound]" required>
+                        <option>Pre-Seed</option>
                         <option>Seed round</option>
                         <option>Angel round</option>
                         <option>Series A</option>
                         <option>Series B</option>
                         <option>Series C</option>
                         <option>Pre-public</option>
+                        <option>IPO</option>
+                        <option>Not Applicable</option>
                     </select>
+                    <div class="checkbox">
+                        
+                    </div>
                 </div>
             </div>
             <div class="form-group">
@@ -167,14 +163,14 @@
                         </label>
                     </div>
                 </div>
-            </div> <!-- /.form-group -->
+            </div> 
             <div class="form-group">
                 <div class="col-sm-9 col-sm-offset-3">
-                    <button type="submit" class="btn btn-primary btn-block">Sign Up!</button>
+                    <button type="submit" class="btn btn-primary btn-block">Submit</button>
                 </div>
             </div>
-        </form> <!-- /form -->
-    </div> <!-- ./container -->
+        </form> 
+    </div> 
 
 
 <%- include("../partials/footer") %>

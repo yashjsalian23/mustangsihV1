@@ -8,7 +8,7 @@ let userSchema= new mongoose.Schema({
         companyName: String,
         ceoName: String,
         totalNumberOfEmployees: Number,
-        foundingDate: Date,
+        foundingDate: String,
         logo: String
     },
     description : {
@@ -30,7 +30,6 @@ let userSchema= new mongoose.Schema({
     },
     funding: {
         totalRaised: Number,
-        totalRounds: Number,
         latestRound: String
     },
     mentor: {
