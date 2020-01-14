@@ -17,14 +17,13 @@ let mentorSchema = new mongoose.Schema({
         visitingCard: String
     },
     experience: {
-        type: String,
         company: String,
-        position: String,
+        position: String
     },
     location:{
+        country: String,
         state: String,
-        city: String,
-        country: String
+        city: String
     },
     domain:String
 }); 

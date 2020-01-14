@@ -21,7 +21,7 @@ passport.use('userLocal', new localStrategy(User.authenticate()));
 passport.use('mentorLocal', new localStrategy(Mentor.authenticate()));
 
 passport.serializeUser(User.serializeUser(), Mentor.serializeUser());
-passport.deserializeUser(User.deserializeUser(),Mentor.deserializeUser());
+passport.deserializeUser(User.deserializeUser(), Mentor.deserializeUser());
  app.use(passport.initialize());
  app.use(passport.session());
 
@@ -111,7 +111,15 @@ app.get("/mentor/register", (req,res)=>{
  app.post("/mentor/register", (req,res)=>{
          console.log(req.body.username);
          console.log(req.body.password);
-         Mentor.register(new Mentor({username:req.body.username}), req.body.password, function(err, user){
+         let newMentor = new Mentor({
+            username: req.body.username,
+            basic: req.body.basic,
+            contact: req.body.contact,
+            experience: req.body.experience,
+            location: req.body.location,
+            domain:req.body.domain
+         });
+         Mentor.register(newMentor, req.body.password, function(err, user){
              if(err){
                  console.log(err);
                  res.redirect("/mentor/register");
