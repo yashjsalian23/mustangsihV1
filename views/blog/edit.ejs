@@ -1,0 +1,184 @@
+<%- include("../partials/header") %>
+
+<style>
+    * {
+     box-sizing: border-box;
+   }
+   
+   body {
+     padding: 1rem;
+   }
+   
+   .contain {
+     max-width: 1170px;
+     margin-left: auto;
+     margin-right: auto;
+     padding: 1em;
+   }
+   @media (min-width: 600px) {
+     .contain {
+       padding: 0;
+     }
+   }
+   
+   h3,
+   ul {
+     margin: 0;
+   }
+   
+   h3 {
+     margin-bottom: 1rem;
+   }
+   
+   input:focus,
+   textarea:focus {
+     outline: 3px solid gold;
+   }
+   
+   input,
+   textarea,
+   button {
+     width: 100%;
+     border: 1px solid #000;
+   }
+   
+   .wrapper {
+     box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
+   }
+   .wrapper > * {
+     padding: 1em;
+   }
+   @media (min-width: 700px) {
+     .wrapper {
+       display: grid;
+       grid-template-columns: 1fr 2fr;
+     }
+     .wrapper > * {
+       padding: 2em 2em;
+     }
+   }
+   
+   ul {
+     list-style: none;
+     padding: 0;
+   }
+   
+   .contacts {
+     background: black;
+     color: #fff;
+   }
+   
+   .form {
+     background: #fff;
+   }
+   
+   form {
+     display: grid;
+     grid-template-columns: 1fr 1fr;
+     grid-gap: 20px;
+   }
+   form label {
+     display: block;
+   }
+   form p {
+     margin: 0;
+   }
+   
+   .full-width {
+     grid-column: 1 / 3;
+   }
+   
+   button,
+   input,
+   textarea {
+     padding: 1em;
+   }
+   
+   button {
+     background: lightgrey;
+     width: 100%;
+     border: 0;
+   }
+   button:hover, button:focus {
+     background: rgb(103, 129, 212);
+     outline: 0;
+   }
+   .btn.btn-primary.btn-block{
+       margin-bottom: 150px;
+       width: 300px;
+       margin-left: 400px;
+   }
+   .terms{
+       margin-left: 440px;
+   }
+   form {
+     display: grid;
+     grid-template-columns: 2fr 1fr;
+     grid-gap: 20px;
+   }
+   form p {
+     grid-column: 1 / 2;
+   }
+   
+   .input-file-wrapper {
+     grid-column: 2 / 3;
+     grid-row: 1 / 2;
+   }
+</style>
+<div class="contain">
+
+    <div class="wrapper">
+      <div class="contacts">
+        <h3>Our contacts</h3>
+  
+        <ul>
+          <li>Chinmay Jaripatke.</li>
+          <li>00-1212121-11</li>
+          <li>chinmayjarpatke@gmail.com</li>
+        </ul>
+      </div>
+  
+      <div class="form">
+        <h3>Edit Blog</h3>
+        <form action="?_method=PUT" method="POST">
+          <p class="full-width">
+            <label >Title</label>
+            <input type="text"   placeholder="Title" name="title" value="<%=blog.title%>" class="form-control" required autofocus>
+          </p>
+          <p class="full-width">
+            <label >Image URL</label>
+            <input type="text"  placeholder="Image url" name="image" value="<%=blog.image%>" class="form-control" required>
+          </p>
+          <p class="full-width">
+            <label >Category</label>
+            <select class="form-control" placeholder="Domain" value="<%=blog.domain%>" name="domain" required >
+                <option>Consumer Internet</option>
+                <option>Technology</option>
+                <option>e-Commerce</option>
+                <option>Finance</option>
+                <option>Healthcare</option>
+                <option>Other</option>
+            </select>          </p>
+          <p class="full-width">
+            <label >Abstract</label>
+            <textarea placeholder="Abstract" rows="2" name="abstract"  class="form-control" required><%=blog.abstract%></textarea>
+          </p>
+          <p class="full-width">
+            <label >Body</label>
+            <textarea placeholder="Start Typing..." rows="30" name="body"  class="form-control" required><%=blog.body%></textarea>
+          </p>
+          <p class="full-width">
+            <button>Submit</button>
+          </p>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</div> <!-- /.form-group -->
+</form> <!-- /form -->
+</div> <!-- ./container -->
+
+
+<%- include("../partials/footer") %>
+

@@ -6,6 +6,7 @@ let express                 = require("express"),
     localStrategy           = require("passport-local"),
     passportLocalMongoose   = require ("passport-local-mongoose"),
     passport                = require("passport"),
+    expressSanitizer        = require("express-sanitizer"),
     User                    = require ("./models/user"),
     Mentor                  = require ("./models/mentor"),
     Blog                    = require ("./models/blog");
@@ -38,6 +39,7 @@ passport.deserializeUser(User.deserializeUser(), Mentor.deserializeUser());
 // passport.deserializeUser();
 // app.use(passport.initialize());
 // app.use(passport.session());
+app.use(expressSanitizer());
 
 app.use(function(req, res, next){
     res.locals.currentUser = req.user;
@@ -115,7 +117,8 @@ app.get("/mentee/profile/edit/:id", (req,res)=>{
 });
 
 app.put("/mentee/profile/edit/:id", function(req, res){
-    // req.body.blog.body = req.sanitize(req.body.blog.body);
+     req.body.body = req.sanitize(req.body.body);
+     req.body.abstract = req.sanitize(req.body.abstract);
    User.findByIdAndUpdate(req.params.id, req.body, function(err, updatedBlog){
       if(err){
           res.redirect("/mentee/profile/edit/"+req.params.id);
@@ -208,7 +211,15 @@ app.put("/mentor/profile/edit/:id", function(req, res){
 });
 
 app.get("/feature/blog/home", (req, res)=>{
-    res.render("./blog/home.ejs");
+    Blog.find({}, function(err, blogs){
+		if(err)
+			console.log("ERROR!!");
+		else{
+			res.render("./blog/home.ejs", {blogs:blogs});
+
+		}
+	});
+    
 });
 
 app.get("/feature/blog/new", (req, res)=>{
@@ -228,15 +239,45 @@ app.post("/feature/blog/new", (req, res)=>{
 app.get("/feature/blog/show/:id", (req, res)=>{
     Blog.findById(req.params.id, (err, foundBlog)=>{
         if(err){
-            console.log("error in edit mentee");
+            console.log("error in show blog");
         }
         else{
             res.render("./blog/show.ejs", {blog:foundBlog});
         }
     })
-})
+});
 
+app.get("/feature/blog/edit/:id", (req, res)=>{
+    Blog.findById(req.params.id, (err, foundBlog)=>{
+        if(err){
+            console.log(err);
+        }
+        else{
+            res.render("./blog/edit.ejs",{blog:foundBlog} );
+        }
+    })
+});
 
+app.put("/feature/blog/edit/:id", function(req, res){
+    // req.body.blog.body = req.sanitize(req.body.blog.body);
+   Blog.findByIdAndUpdate(req.params.id, req.body, function(err, updatedBlog){
+      if(err){
+          res.redirect("/feature/blog/edit/"+req.params.id);
+      }  else {
+          res.redirect("/feature/blog/home");
+      }
+   });
+});
+
+app.delete("/feature/blog/delete/:id", function(req, res){
+	Blog.findByIdAndRemove(req.params.id, function(err){
+		if(err)
+			res.redirect("/feature/blog/home");
+		else
+			res.redirect("/feature/blog/home");
+			
+	});
+});
         
 
 var port = process.env.PORT || 3000;
