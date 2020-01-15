@@ -9,8 +9,16 @@ let express                 = require("express"),
     User                    = require ("./models/user"),
     Mentor                  = require ("./models/mentor");
 
+    mongoose.connect('mongodb+srv://mustangs:mongodb@cluster0-bhpzo.mongodb.net/test?retryWrites=true&w=majority', {
+        useNewUrlParser: true,
+        useCreateIndex: true
+    }).then(() => {
+        console.log('Connected to DB!');
+    }).catch(err => {
+        console.log('ERROR:', err.message);
+    });
 app.use(bodyParser.urlencoded({extended:true}));
-mongoose.connect("mongodb://localhost/sih");
+// mongoose.connect("mongodb://localhost/sih");
 app.use(methodOverride("_method"));
 app.use(require("express-session")({
 	secret: "I",
@@ -117,7 +125,8 @@ app.get("/mentor/register", (req,res)=>{
             contact: req.body.contact,
             experience: req.body.experience,
             location: req.body.location,
-            domain:req.body.domain
+            domain:req.body.domain,
+            description: req.body.description
          });
          Mentor.register(newMentor, req.body.password, function(err, user){
              if(err){
@@ -136,6 +145,17 @@ app.get("/mentor/register", (req,res)=>{
          successRedirect: "/",
          failureRedirect:"/mentor/login"
      }) ,(req, res)=>{});
+
+app.get("/mentor/:id", (req,res)=>{
+    Mentor.findById(req.params.id, (err, foundUser)=>{
+        if(err){
+            console.log("error in mentor profile");
+        }
+        res.render("mentorProfile.ejs", {mentor:foundUser});
+    });
+})
+
+
         
 
 var port = process.env.PORT || 3000;

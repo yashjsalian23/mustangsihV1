@@ -212,51 +212,56 @@
               </div>
               <div class="panel-body">
                 <div class="profile__avatar">
-                  <img src="<%=user.basic.logo %>" alt="...">
+                  <img src="<%=mentor.basic.logo %>" alt="...">
                 </div>
                 <div class="profile__header">
-                  <h4><%=user.basic.companyName %> <small><%=user.domain%></small></h4>
+                  <h4><%=mentor.basic.name %> <small><%= mentor.experience.position%>, <%=mentor.experience.company%></small></h4>
                   <p class="text-muted">
-                      <%=user.description.short %>
+                      <%=mentor.description.short %>
                   </p>
                   <p>
-                    <a href="#"><%=user.contact.website%></a>
+                    <a href="#"><%=mentor.contact.email%></a>
                   </p>
                 </div>
               </div>
             </div>
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <%=user.description.bio%>
+                    <%=mentor.description.bio%>
                 </div>
             </div>
             <div class="panel panel-default">
               <div class="panel-heading">
-              <h4 class="panel-title">User info</h4>
+              <h4 class="panel-title">mentor info</h4>
               </div>
               <div class="panel-body">
                 <table class="table profile__table">
                   <tbody>
                     <tr>
+                        <th><strong>Domain</strong></th>
+                        <td><%=mentor.domain%></strong> </td>
+                      </tr>
+                      <tr>
+                    <tr>
                       <th><strong>Location</strong></th>
-                      <td><%=user.location.city%>, <%=user.location.state%>, <strong><%=user.location.country%></strong> </td>
+                      <td><%=mentor.location.city%>, <%=mentor.location.state%>, <strong><%=mentor.location.country%></strong> </td>
                     </tr>
                     <tr>
                       <th><strong>Company name</strong></th>
-                      <td><%=user.basic.companyName %></td>
+                      <td><%=mentor.experience.company %></td>
                     </tr>
                     <tr>
-                      <th><strong>CEO: </strong></th>
-                      <td><%=user.basic.ceoName%></td>
+                      <th><strong>position: </strong></th>
+                      <td><%=mentor.experience.position%></td>
                     </tr>
                     <tr>
-                        <th><strong>Total Employees: </strong></th>
-                        <td><%=user.basic.totalNumberOfEmployees%></td>
-                    </tr>
-                    <tr>
-                        <th><strong>Date of establishment: </strong></th>
-                        <td><%=user.basic.foundingDate%></td>
-                    </tr>
+                        <th><strong>DOB: </strong></th>
+                        <td><%=mentor.basic.dob%></td>
+                      </tr>
+                      <tr>
+                        <th><strong>Gender: </strong></th>
+                        <td><%=mentor.basic.gender%></td>
+                      </tr>
                   </tbody>
                 </table>
               </div>
@@ -357,7 +362,7 @@
             
             <p>
               <a href="#" class="profile__contact-btn btn btn-lg btn-block btn-info" data-toggle="modal" data-target="#profile__contact-form">
-                Contact user
+                Contact mentor
               </a>
             </p>
     
@@ -371,7 +376,7 @@
                 </div>
                 <div class="profile__contact-info-body">
                   <h5 class="profile__contact-info-heading">Work number</h5>
-                  <%=user.contact.telephone%>
+                  <%=mentor.contact.telephone%>
                 </div>
               </div>
               <br/>
@@ -381,12 +386,12 @@
                 </div>
                 <div class="profile__contact-info-body">
                   <h5 class="profile__contact-info-heading">LinkedIn</h5>
-                  <a href="#"><%=user.contact.linkedin%></a>
+                  <a href="#"><%=mentor.contact.linkedin%></a>
                 </div>
                 <br/>
                 <div class="profile__contact-info-body">
                     <h5 class="profile__contact-info-heading">GitHub</h5>
-                    <a href="#"><%=user.contact.github%></a>
+                    <a href="#"><%=mentor.contact.github%></a>
                 </div>
                 <br/>
               <div class="profile__contact-info-item">
@@ -395,9 +400,14 @@
                 </div>
                 <div class="profile__contact-info-body">
                   <h5 class="profile__contact-info-heading">E-mail address</h5>
-                  <a href="#"><%=user.contact.email%></a>
+                  <a href="#"><%=mentor.contact.email%></a>
                 </div>
                 <br/>
+                <div class="profile__contact-info-body">
+                    <h5 class="profile__contact-info-heading">Skype</h5>
+                    <a href="#"><%=mentor.contact.skype%></a>
+                  </div>
+                  <br/>
               
             </div>
     

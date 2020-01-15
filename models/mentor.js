@@ -14,7 +14,12 @@ let mentorSchema = new mongoose.Schema({
         linkedin: String,
         email: String,
         skype: String,
-        visitingCard: String
+        visitingCard: String,
+        github: String
+    },
+    description : {
+        short: String,
+        bio: String
     },
     experience: {
         company: String,
