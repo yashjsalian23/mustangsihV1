@@ -1,92 +1,89 @@
 <%- include("../partials/header") %>
     <div class="container">
-        <form class="form-horizontal" action="/mentee/register" method="POST">
+        <form class="form-horizontal" action="/mentee/profile/edit/<%=user._id %>?_method=PUT" method="POST">
             <h2>Register</h2>
             <div class="form-group">
                 <label  class="col-sm-3 control-label">Username: </label>
                 <div class="col-sm-9">
-                    <input type="text"  placeholder="Username" name="username" class="form-control" required autofocus>
-                    
-                </div>
-            </div>
-            <div class="form-group">
-                <label  class="col-sm-3 control-label">Password: </label>
-                <div class="col-sm-9">
-                    <input type="password" placeholder="Password" name="password" class="form-control" required>
+                    <input type="text"  placeholder="Username" name="username" value='<%=user.username%>' class="form-control" required autofocus>
                     
                 </div>
             </div>
             <div class="form-group">
                 <label  class="col-sm-3 control-label">Company Name: </label>
                 <div class="col-sm-9">
-                    <input type="text"  placeholder="Comapny Name" name="basic[companyName]" class="form-control" required >
+                    <input type="text"  placeholder="Comapny Name" name="basic[companyName]" value="<%= user.basic.companyName %>" class="form-control" required >
                     
                 </div>
             </div>
             <div class="form-group">
                 <label  class="col-sm-3 control-label">CEO's Name: </label>
                 <div class="col-sm-9">
-                    <input type="text"  placeholder="CEO's Name" name="basic[ceoName]" class="form-control" required>
+                    <input type="text"  placeholder="CEO's Name" name="basic[ceoName]" value="<%= user.basic.ceoName %>" class="form-control" required>
                     
                 </div>
             </div>
             <div class="form-group">
                 <label  class="col-sm-3 control-label">Total Number of Employees: </label>
                 <div class="col-sm-9">
-                    <input type="number" placeholder="Total Number of Employees" required name="basic[totalNumberOfEmployees]" class="form-control">
+                    <input type="number" placeholder="Total Number of Employees" value="<%= user.basic.totalNumberOfEmployees %>" required name="basic[totalNumberOfEmployees]" class="form-control">
                     
                 </div>
             </div>
             <div class="form-group">
                 <label  class="col-sm-3 control-label">Founding Date: </label>
                 <div class="col-sm-9">
-                    <input type="date" placeholder="Founding Date" name="basic[foundingDate]" class="form-control">
+                    <input type="date" placeholder="Founding Date" value="<%= user.basic.foundingDate %>" name="basic[foundingDate]" class="form-control">
                     
                 </div>
             </div>
             <div class="form-group">
                 <label  class="col-sm-3 control-label">Logo: </label>
                 <div class="col-sm-9">
-                    <input type="text" placeholder="Logo" name="basic[logo]" class="form-control" required>
+                    <input type="text" placeholder="Logo" name="basic[logo]" value="<%=user.basic.logo%>" class="form-control" required>
                     
                 </div>
             </div>
             <div class="form-group">
                 <label  class="col-sm-3 control-label">Short Description: </label>
                 <div class="col-sm-9">
-                    <input type="text" placeholder="Short Description" name="description[short]" class="form-control" required>
+                    <input type="text" placeholder="Short Description" name="description[short]" value="<%= user.description.short %>" class="form-control" required>
                     
                 </div>
             </div>
             <div class="form-group">
                 <label  class="col-sm-3 control-label">Description: </label>
                 <div class="col-sm-9">
-                    <textarea placeholder="Description" rows="4" name="description[bio]" class="form-control" required></textarea>
+                    <textarea placeholder="Description" rows="4" name="description[bio]" value="<%= user.description.bio %>" class="form-control" required></textarea>
                     
                 </div>
             </div>
             <div class="form-group">
-                <select class="form-control" placeholder="Domain" name="domain" required >
-                    <option>Consumer Internet</option>
-                    <option>Technology</option>
-                    <option>e-Commerce</option>
-                    <option>Finance</option>
-                    <option>Healthcare</option>
-                    <option>Other</option>
-                </select>
+                <label  class="col-sm-3 control-label">Domain: </label>
+                <div class="col-sm-9">
+                    <select class="form-control" placeholder="Domain" value="<%= user.domain %>" name="domain" required >
+                        <option>Consumer Internet</option>
+                        <option>Technology</option>
+                        <option>e-Commerce</option>
+                        <option>Finance</option>
+                        <option>Healthcare</option>
+                        <option>Other</option>
+                    </select>
+                </div>
+                
             </div>
             
             <div class="form-group">
                 <label  class="col-sm-3 control-label">City: </label>
                 <div class="col-sm-9">
-                    <input type="text" placeholder="City" name="location[city]" class="form-control" required>
+                    <input type="text" placeholder="City" name="location[city]" value="<%= user.location.city %>" class="form-control" required>
                     
                 </div>
             </div>
             <div class="form-group">
                 <label  class="col-sm-3 control-label">State: </label>
                 <div class="col-sm-9">
-                    <input type="text" placeholder="State" name="location[state]" class="form-control" required>
+                    <input type="text" placeholder="State" name="location[state]" value="<%= user.location.state %>" class="form-control" required>
                     
                 </div>
             </div>
@@ -100,41 +97,41 @@
             <div class="form-group">
                 <label for="email" class="col-sm-3 control-label">Email: </label>
                 <div class="col-sm-9">
-                    <input type="email" placeholder="Email-id" required name="contact[email]" class="form-control">
+                    <input type="email" placeholder="Email-id" required name="contact[email]" value="<%= user.contact.email%>" class="form-control">
                 </div>
             </div>
             <div class="form-group">
                 <label  class="col-sm-3 control-label">Website: </label>
                 <div class="col-sm-9">
-                    <input type="text" placeholder="Website" required name="contact[website]" class="form-control">
+                    <input type="text" placeholder="Website" required name="contact[website]" value="<%= user.contact.website %>" class="form-control">
                     
                 </div>
             </div>
             <div class="form-group">
                 <label  class="col-sm-3 control-label">Phone: </label>
                 <div class="col-sm-9">
-                    <input type="number" placeholder="" name="contact[telephone]" required class="form-control" maxlength="12" minlength="12">
+                    <input type="number" placeholder="" name="contact[telephone]" value="<%= user.contact.telephone %>"  required class="form-control" maxlength="12" minlength="12">
                     <span class="help-block">Add 91</span>
                 </div>
             </div>
             <div class="form-group">
                 <label  class="col-sm-3 control-label">LinkedIn: </label>
                 <div class="col-sm-9">
-                    <input type="text" placeholder="LinkedIn" name="contact[linkedin]" class="form-control">
+                    <input type="text" placeholder="LinkedIn" name="contact[linkedin]" value="<%= user.contact.linkedin %>" class="form-control">
                     
                 </div>
             </div>
             <div class="form-group">
                 <label  class="col-sm-3 control-label">GitHub: </label>
                 <div class="col-sm-9">
-                    <input type="text" placeholder="GitHub" name="contact[github]" class="form-control">
+                    <input type="text" placeholder="GitHub" name="contact[github]" value="<%= user.contact.github %>" class="form-control">
                     
                 </div>
             </div>
             <div class="form-group">
                 <label  class="col-sm-3 control-label">Total Funds Raised: </label>
                 <div class="col-sm-9">
-                    <input type="number" placeholder="Total Funds Raised" name="funding[totalRaised]" required class="form-control" step="100000">
+                    <input type="number" placeholder="Total Funds Raised" name="funding[totalRaised]" value="<%= user.funding.totalRaised %>" required class="form-control" step="100000">
                     <span class="help-block">In INR</span>
                 </div>
             </div>
@@ -142,7 +139,7 @@
                 <label  class="col-sm-3 control-label">Latest Round: </label>
                
                 <div class="col-sm-9">
-                    <select  class="form-control" name="funding[latestRound]" required>
+                    <select  class="form-control" name="funding[latestRound]" value="<%= user.funding.latestRound %>" required>
                         <option>Pre-Seed</option>
                         <option>Seed round</option>
                         <option>Angel round</option>
@@ -158,15 +155,7 @@
                     </div>
                 </div>
             </div>
-            <div class="form-group">
-                <div class="col-sm-9 col-sm-offset-3">
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox" required>I accept all the <a href="#">terms and condition</a>
-                        </label>
-                    </div>
-                </div>
-            </div> 
+            
             <div class="form-group">
                 <div class="col-sm-9 col-sm-offset-3">
                     <button type="submit" class="btn btn-primary btn-block">Submit</button>

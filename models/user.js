@@ -33,8 +33,12 @@ let userSchema= new mongoose.Schema({
         latestRound: String
     },
     mentor: {
-        
-    }
+		id:{
+			type: mongoose.Schema.Types.ObjectId,
+            ref: "Mentor"
+		},
+		username:String
+	}
     
 });
 userSchema.plugin(passportLocalMongoose);

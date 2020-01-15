@@ -138,28 +138,20 @@
       </div>
   
       <div class="form">
-        <h3>Mentor Registeration</h3>
-        <form action="/mentor/register" method="POST">
+        <h3>Edit Profile</h3>
+        <form action="/mentor/profile/edit/<%=mentor._id %>?_method=PUT" method="POST">
           <p>
             <label >Username</label>
-            <input type="text"   placeholder="Username" name="username" class="form-control" required autofocus>
-          </p>
-          <p>
-            <label >Password</label>
-            <input type="password"  placeholder="Password" name="password" class="form-control" required>
+            <input type="text"   placeholder="Username" name="username" value="<%=mentor.username%>" class="form-control" required autofocus>
           </p>
           <p>
             <label >Name</label>
-            <input type="text"  placeholder="Name" name="basic[name]" class="form-control" required>
-          </p>
-          <p>
-            <label >DOB</label>
-            <input type="date"  placeholder="DOB" name="basic[dob]"  class="form-control" required>
+            <input type="text"  placeholder="Name" name="basic[name]" value="<%=mentor.basic.name%>" class="form-control" required>
           </p>
           <p>
             <label >Gender</label>
             <!-- <input type="text"  placeholder="Gender" name="basic[Gender]" class="form-control" required> -->
-            <select class="form-control" placeholder="Gender" name="basic[gender]" required >
+            <select class="form-control" placeholder="Gender" name="basic[gender]" value="<%=mentor.basic.gender%>" required >
                 <option>Male</option>
                 <option>Female</option>
                 <option>Other</option>
@@ -167,38 +159,38 @@
           </p>
           <p>
             <label >Telephone</label>
-            <input type="number" placeholder="" name="contact[telephone]" required class="form-control" maxlength="12" minlength="12" required>
+            <input type="number" placeholder="" name="contact[telephone]" value="<%= mentor.contact.telephone %>" required class="form-control" maxlength="12" minlength="12" required>
             <span class="help-block">Add 91</span>
           </p>
           <p>
             <label >Linkedin</label>
-            <input type="text" placeholder="LinkedIn" name="contact[linkedin]" class="form-control">
+            <input type="text" placeholder="LinkedIn" name="contact[linkedin]"  value="<%= mentor.contact.linkedin %>" class="form-control">
           </p>
           <p>
             <label >email</label>
-            <input type="email" placeholder="Email-id" required name="contact[email]" class="form-control">
+            <input type="email" placeholder="Email-id" required name="contact[email]" value="<%= mentor.contact.email%>" class="form-control">
           </p>
           <p>
             <label >Skype</label>
-            <input type="text" placeholder="Skype" name="contact[skype]" class="form-control">
+            <input type="text" placeholder="Skype" name="contact[skype]" value="<%= mentor.contact.skype%>" class="form-control">
           </p>
           <p>
             <label >Github</label>
-            <input type="text" placeholder="" name="contact[github]" required class="form-control"  required>
+            <input type="text" placeholder="" name="contact[github]" value="<%= mentor.contact.github %>" required class="form-control"  required>
             <span class="help-block">Add 91</span>
           </p>
           <p>
             <label >Company Name</label>
-            <input type="text"  placeholder="Company Name" name="experience[company]" class="form-control" required >
+            <input type="text"  placeholder="Company Name" name="experience[company]" value="<%= mentor.experience.company %>" class="form-control" required >
           </p>
           <p>
             <label >Position</label>
-            <input type="text"  placeholder="Position" name="experience[position]" class="form-control" required >
+            <input type="text"  placeholder="Position" name="experience[position]" value="<%= mentor.experience.position %>" class="form-control" required >
           </p>
           <p>
             <label >Domain</label>
             <!-- <input type="text"  placeholder="Gender" name="basic[Gender]" class="form-control" required> -->
-            <select class="form-control" placeholder="Domain" name="domain" required >
+            <select class="form-control" placeholder="Domain" name="domain" value="<%= mentor.domain %>" required >
                 <option>Consumer Internet</option>
                 <option>Technology</option>
                 <option>e-Commerce</option>
@@ -209,23 +201,23 @@
           </p>
           <p>
             <label >Country</label>
-            <input type="text" placeholder="Country" name="location[country]" class="form-control" required>
+            <input type="text" placeholder="Country" name="location[country]" value="<%= mentor.location.country%>" class="form-control" required>
           </p>
           <p>
             <label >State</label>
-            <input type="text" placeholder="State" name="location[state]" class="form-control" required>
+            <input type="text" placeholder="State" name="location[state]" value="<%= mentor.location.state%>" class="form-control" required>
           </p>
           <p>
             <label >City</label>
-            <input type="text" placeholder="City" name="location[city]" class="form-control" required>
+            <input type="text" placeholder="City" name="location[city]" value="<%= mentor.location.city%>" class="form-control" required>
           </p>
           <p>
             <label >Short description</label>
-            <input type="text" placeholder="Short description" name="description[short]" class="form-control" required>
+            <input type="text" placeholder="Short description" name="description[short]" value="<%= mentor.description.short%>" class="form-control" required>
           </p>
           <p class="full-width">
             <label >Description</label>
-            <textarea placeholder="Description" rows="4" name="description[bio]" class="form-control" required></textarea>
+            <textarea placeholder="Description" rows="4" name="description[bio]" value="<%= mentor.description.bio %>" class="form-control" required></textarea>
           </p>
           <p class="input-file-wrapper">
             <label for="upload">Upload your photo</label>

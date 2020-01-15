@@ -7,16 +7,17 @@ let express                 = require("express"),
     passportLocalMongoose   = require ("passport-local-mongoose"),
     passport                = require("passport"),
     User                    = require ("./models/user"),
-    Mentor                  = require ("./models/mentor");
+    Mentor                  = require ("./models/mentor"),
+    Blog                    = require ("./models/blog");
 
-    mongoose.connect('mongodb+srv://mustangs:mongodb@cluster0-bhpzo.mongodb.net/test?retryWrites=true&w=majority', {
-        useNewUrlParser: true,
-        useCreateIndex: true
-    }).then(() => {
-        console.log('Connected to DB!');
-    }).catch(err => {
-        console.log('ERROR:', err.message);
-    });
+    mongoose.connect("mongodb://localhost/sih");
+    // useNewUrlParser: true,
+    //     useCreateIndex: true
+    // }).then(() => {
+    //     console.log('Connected to DB!');
+    // }).catch(err => {
+    //     console.log('ERROR:', err.message);
+    // });
 app.use(bodyParser.urlencoded({extended:true}));
 // mongoose.connect("mongodb://localhost/sih");
 app.use(methodOverride("_method"));
@@ -93,7 +94,7 @@ app.post("/mentee/login", passport.authenticate("userLocal", {
 	failureRedirect:"/mentee/login"
 }) ,(req, res)=>{});
 
-app.get("/mentee/:id", (req,res)=>{
+app.get("/mentee/profile/:id", (req,res)=>{
     User.findById(req.params.id, (err, foundUser)=>{
         if(err){
             console.log("error in user profile");
@@ -102,10 +103,34 @@ app.get("/mentee/:id", (req,res)=>{
     });
 });
 
+app.get("/mentee/profile/edit/:id", (req,res)=>{
+    User.findById(req.params.id, (err, foundUser)=>{
+        if(err){
+            console.log("error in edit mentee");
+        }
+        else{
+            res.render("./mentee/edit.ejs", {user:foundUser});
+        }
+    })
+});
+
+app.put("/mentee/profile/edit/:id", function(req, res){
+    // req.body.blog.body = req.sanitize(req.body.blog.body);
+   User.findByIdAndUpdate(req.params.id, req.body, function(err, updatedBlog){
+      if(err){
+          res.redirect("/mentee/profile/edit/"+req.params.id);
+      }  else {
+          res.redirect("/");
+      }
+   });
+});
+
 app.get("/mentee/logout", function(req, res){
 	req.logout();
 	res.redirect("/");
 });
+
+app.get
 
 app.get("/mentor/login", (req,res)=>{
     res.render("./mentor/login.ejs");
@@ -146,13 +171,69 @@ app.get("/mentor/register", (req,res)=>{
          failureRedirect:"/mentor/login"
      }) ,(req, res)=>{});
 
-app.get("/mentor/:id", (req,res)=>{
+app.get("/mentor/logout", function(req, res){
+        req.logout();
+        res.redirect("/");
+    });
+
+app.get("/mentor/profile/:id", (req,res)=>{
     Mentor.findById(req.params.id, (err, foundUser)=>{
         if(err){
             console.log("error in mentor profile");
         }
         res.render("mentorProfile.ejs", {mentor:foundUser});
     });
+});
+
+app.get("/mentor/profile/edit/:id", (req,res)=>{
+    Mentor.findById(req.params.id, (err, foundUser)=>{
+        if(err){
+            console.log("error in edit mentee");
+        }
+        else{
+            res.render("./mentor/edit.ejs", {mentor:foundUser});
+        }
+    })
+});
+
+app.put("/mentor/profile/edit/:id", function(req, res){
+    // req.body.blog.body = req.sanitize(req.body.blog.body);
+   Mentor.findByIdAndUpdate(req.params.id, req.body, function(err, updatedBlog){
+      if(err){
+          res.redirect("/mentor/profile/edit/"+req.params.id);
+      }  else {
+          res.redirect("/home");
+      }
+   });
+});
+
+app.get("/feature/blog/home", (req, res)=>{
+    res.render("./blog/home.ejs");
+});
+
+app.get("/feature/blog/new", (req, res)=>{
+    res.render("./blog/new.ejs");
+});
+
+app.post("/feature/blog/new", (req, res)=>{
+    Blog.create(req.body, function(err, newBlog){
+		if(err)
+			console.log("ERROR");
+		else{
+			res.redirect("/feature/blog/home");
+		}
+	});
+});
+
+app.get("/feature/blog/show/:id", (req, res)=>{
+    Blog.findById(req.params.id, (err, foundBlog)=>{
+        if(err){
+            console.log("error in edit mentee");
+        }
+        else{
+            res.render("./blog/show.ejs", {blog:foundBlog});
+        }
+    })
 })
 
 
