@@ -5,6 +5,8 @@
 	<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
 	<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 	<link href="https://fonts.googleapis.com/css?family=Oswald:500|Quicksand&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Mansalva&display=swap" rel="stylesheet">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js" type="text/javascript" async></script>
 	<!-- <link rel="stylesheet" type="text/css" href="../../cssFiles/userProfile.css"> -->
 	<style>
 		.container{
@@ -12,7 +14,7 @@
 				margin-top:35px;
 			}
 	</style>
-	<title> weStart </title>
+	<title> Prarambh </title>
 </head>
 <body>
 	<div class="container">
@@ -30,17 +32,19 @@
 				</div>
 				<div class="collapse navbar-collapse" id="collapse-this">
 		
-				<div class="nav navbar-nav">
+				<div class="nav navbar-nav"> 
 					<li><a href="feature/blog/home"> Blog</a></li>
 					<li><a href="/feature/forum/home">Forum</a></li>
 					
 				</div>
 				<div class="nav navbar-nav navbar-right">
 					<% if(!currentUser){ %>
-						<li><a href="#">Register </a></li>
-						<li><a href="/mentee/login">Login </a></li>
+						<li><a href="/feature/apprentice/idea">Have an idea?</a></li>
+						<li><a href="/register">Register </a></li>
+						<li><a href="/login">Login </a></li>
 					<% }else{ %>
-						<li><a href="#">Welcome, <%=currentUser.username%> </a></li>
+						<%type=currentUser.type%>
+						<li><a href="/<%=type%>/profile/<%=currentUser._id%>">Welcome, <%=currentUser.username%> </a></li>
 						<li><a href="/profile/logout">Logout </a></li>
 					<% } %>
 				</div>

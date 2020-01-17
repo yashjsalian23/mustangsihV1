@@ -4,6 +4,7 @@ let mongoose=require("mongoose"),
 let mentorSchema = new mongoose.Schema({
     username: String,
     password: String,
+    type: String,
     basic: {
         name: String,
         dob: Date,

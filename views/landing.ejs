@@ -1,7 +1,120 @@
-<%- include("partials/header") %>
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Prarambh</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <link href="https://fonts.googleapis.com/css?family=Mansalva&display=swap" rel="stylesheet">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js" type="text/javascript" async></script>
+<style>
+body{
+background-color:rgb(255, 255, 255);
+}
+#landing-header {
+ z-index: 1;
+ position: relative;
+ text-align: center;
+ padding-top: 40vh;
+ 
+}
+#landing-header h1,h4,p {
+    color: rgb(0, 0, 0);
+    position: relative;
+    text-align: center;
+    padding-left: 700px;
+}
+.slideshow {
+ position: fixed;
+ width: 100%;
+ height: 100%;
+ top: 0;
+ left: 0;
+ z-index: 0;
+ list-style: none;
+ margin: 0;
+ padding: 0;
+}
+.slideshow li {
+ width: 100%;
+ height: 100%;
+ position: absolute;
+ top: 0;
+ left: 0;
+ background-size: cover;
+ background-position: 50% 50%;
+ background-repeat: no-repeat;
+ opacity: 0;
+ z-index: 0;
+ animation: imageAnimation 50s linear infinite;
+}
+.slideshow li:nth-child(1) {
+ background-image: url( https://insights.dice.com/wp-content/uploads/2019/06/shutterstock_714589963.jpg
+     );
+ animation-delay: 0s;
+}
+.slideshow li:nth-child(2) {
+ background-image: url( https://cdn.lynda.com/course/713374/713374-637038227663939567-16x9.jpg);
+ animation-delay: 10s;
+}
+.slideshow li:nth-child(3) {
+ background-image: url(https://img.chefdentreprise.com/Img/BREVE/2017/1/313143/recommandations-transformer-PME-ETI-F.jpg);
+ animation-delay: 20s;
+}
+.slideshow li:nth-child(4) {
+ background-image: url(https://assets.entrepreneur.com/content/3x2/2000/20190205112231-shutterstock-1096071023.jpeg);
+ animation-delay: 30s;
+}
+.slideshow li:nth-child(5) {
+ background-image: url(https://media.nature.com/lw800/magazine-assets/d41586-019-01936-7/d41586-019-01936-7_16874990.jpg);
+ animation-delay: 40s;
+}
 
-    <!-- <h1>Landing Page</h1>
-    <a href="/home">Home</a> -->
-    <!-- <script>(function(t,e,s,n){var o,a,c;t.SMCX=t.SMCX||[],e.getElementById(n)||(o=e.getElementsByTagName(s),a=o[o.length-1],c=e.createElement(s),c.type="text/javascript",c.async=!0,c.id=n,c.src=["https:"===location.protocol?"https://":"http://","widget.surveymonkey.com/collect/website/js/tRaiETqnLgj758hTBazgd0aW9rUNQBR86gDfXZ4xdzX2Sxxapqsq2H7YuBEIIOJS.js"].join(""),a.parentNode.insertBefore(c,a))})(window,document,"script","smcx-sdk");</script><a style="font: 12px Helvetica, sans-serif; color: #999; text-decoration: none;" href=https://www.surveymonkey.com> Create your own user feedback survey </a> -->
+@keyframes imageAnimation {
+ 0% {
+opacity: 0;
+animation-timing-function: ease-in;
+ }
+ 10% {
+opacity: 1;
+animation-timing-function: ease-out;
+ }
+ 20% {
+opacity: 1
+ }
+ 30% {
+opacity: 0
+ }
+}
+.no-cssanimations .slideshow li {
+opacity: 1;
+}
+h1{
+font-family: 'Mansalva', cursive;
+font-size: 75px;
+padding-top: 200px;
+}
+h4{
+    font-family: 'Mansalva', cursive;
+}
+.btn-primary.btn-lg{
+   
+    background-color: green;
+}
+</style>
+</head>
+<body>
+    <ul class="slideshow">
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+    </ul>
+    <div id="landing-header">
+        <h1>Prarambh</h1>
+        <h4>Mentoring for Start-up Success!</h4>
+        <p><a class="btn btn-primary btn-lg" href="/home" role="button">Explore more</a></p>
+    </div>
+</body>
+</html>
 
-<%- include("partials/footer") %>
+

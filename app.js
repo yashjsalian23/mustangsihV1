@@ -7,10 +7,12 @@ let express                 = require("express"),
     passportLocalMongoose   = require ("passport-local-mongoose"),
     passport                = require("passport"),
     expressSanitizer        = require("express-sanitizer"),
+    flash                   = require("connect-flash"),
     Mentor                  = require ("./models/mentor"),
     User                    = require ("./models/user"),
     Blog                    = require ("./models/blog"),
     Forum                   = require ("./models/forum"),
+    Apprentice              = require ("./models/apprentice");
     Comment                 = require ("./models/comment");
 
     mongoose.connect("mongodb://localhost/sih");
@@ -28,6 +30,8 @@ app.use(require("express-session")({
 	resave:false,
 	saveUninitialized: false
 }));
+app.use(flash());
+
 passport.use('userLocal', new localStrategy(User.authenticate()));
 
 // app.use(require("express-session")({
@@ -46,11 +50,11 @@ app.use(expressSanitizer());
 
 app.use((req, res, next)=>{
     res.locals.currentUser = req.user;
+    res.locals.error = req.flash("error");
+    res.locals.success = req.flash("success");
     // console.log(req.user);
     next();
  });
-
- 
 //  app.use(function(req, res, next){
 //     res.locals.currentUser = req.mentor;
 //     next();
@@ -66,7 +70,15 @@ app.get("/landing-page", (req, res)=>{
 
 app.get("/home", (req, res)=>{
     res.render("home.ejs");
-})
+});
+
+app.get("/login", (req, res)=>{
+    res.render("login.ejs");
+});
+
+app.get("/register", (req, res)=>{
+    res.render("register.ejs");
+});
 
 app.get("/mentee/login", (req, res)=>{
     res.render("./mentee/login.ejs");
@@ -76,19 +88,24 @@ app.get("/mentee/register", (req,res)=>{
     res.render("./mentee/register.ejs");
 });
 
+app.get("/feature/getMentor", (req, res)=>{
+    res.render("getMentor.ejs");
+})
+
 app.post("/mentee/register", (req,res)=>{
     console.log(req.body.username);
     console.log(req.body.password);
     let newUser =new User({
         username: req.body.username,
         basic: req.body.basic,
+        type: "mentee",
         description: req.body.description,
         domain: req.body.domain,
         location: req.body.location,
         contact: req.body.contact,
         funding: req.body.funding
     });
-	User.register(newUser, req.body.password, (err, user)=>{
+	User.register(newUser, req.body.password, (err)=>{
 		if(err){
 			console.log("ERROR");
 			res.redirect("/mentee/register");
@@ -102,7 +119,7 @@ app.post("/mentee/register", (req,res)=>{
 });
 
 app.post("/mentee/login", passport.authenticate("userLocal", {
-	successRedirect: "/",
+	successRedirect: "/home",
 	failureRedirect:"/mentee/login"
 }) ,(req, res)=>{});
 
@@ -138,9 +155,6 @@ app.put("/mentee/profile/edit/:id", (req, res)=>{
    });
 });
 
-
-
-
 app.get("/mentor/login", (req,res)=>{
     res.render("./mentor/login.ejs");
 });
@@ -149,8 +163,7 @@ app.get("/mentor/register", (req,res)=>{
     res.render("./mentor/register.ejs");
 });
 
-
- app.post("/mentor/register", (req,res)=>{
+app.post("/mentor/register", (req,res)=>{
     console.log(req.body.username);
     console.log(req.body.password);
     let newMentor = new Mentor({
@@ -160,7 +173,8 @@ app.get("/mentor/register", (req,res)=>{
             experience: req.body.experience,
             location: req.body.location,
             domain:req.body.domain,
-            description: req.body.description
+            description: req.body.description,
+            type: "mentor"
          });
          Mentor.register(newMentor, req.body.password, (err, user)=>{
              if(err){
@@ -180,8 +194,6 @@ app.get("/mentor/register", (req,res)=>{
          failureRedirect:"/mentor/login"
      }) ,(req, res)=>{});
 
-
-
 app.get("/mentor/profile/:id", (req,res)=>{
     Mentor.findById(req.params.id, (err, foundUser)=>{
         if(err){
@@ -191,7 +203,7 @@ app.get("/mentor/profile/:id", (req,res)=>{
     });
 });
 
-app.get("/mentor/profile/edit/:id", (req,res)=>{
+app.get("/mentor/profile/edit/:id", isLoggedIn, (req,res)=>{
     Mentor.findById(req.params.id, (err, foundUser)=>{
         if(err){
             console.log("error in edit mentee");
@@ -199,10 +211,10 @@ app.get("/mentor/profile/edit/:id", (req,res)=>{
         else{
             res.render("./mentor/edit.ejs", {mentor:foundUser});
         }
-    })
+    });
 });
 
-app.put("/mentor/profile/edit/:id", (req, res)=>{
+app.put("/mentor/profile/edit/:id", isLoggedIn, (req, res)=>{
     // req.body.blog.body = req.sanitize(req.body.blog.body);
    Mentor.findByIdAndUpdate(req.params.id, req.body, (err, updatedBlog)=>{
       if(err){
@@ -224,11 +236,11 @@ app.get("/feature/blog/home", (req, res)=>{
     
 });
 
-app.get("/feature/blog/new", isMentorLoggedIn,(req, res)=>{
+app.get("/feature/blog/new", isLoggedIn,(req, res)=>{
     res.render("./blog/new.ejs");
 });
 
-app.post("/feature/blog/new", isMentorLoggedIn, (req, res)=>{
+app.post("/feature/blog/new", isLoggedIn, (req, res)=>{
     Blog.create(req.body, (err, newData)=>{
 		if(err)
 			console.log("ERROR");
@@ -256,7 +268,7 @@ app.get("/feature/blog/show/:id", (req, res)=>{
     })
 });
 
-app.get("/feature/blog/edit/:id", (req, res)=>{
+app.get("/feature/blog/edit/:id", isLoggedIn, (req, res)=>{
     Blog.findById(req.params.id, (err, foundBlog)=>{
         if(err){
             console.log(err);
@@ -267,7 +279,7 @@ app.get("/feature/blog/edit/:id", (req, res)=>{
     })
 });
 
-app.put("/feature/blog/edit/:id", (req, res)=>{
+app.put("/feature/blog/edit/:id", isLoggedIn, (req, res)=>{
     // req.body.blog.body = req.sanitize(req.body.blog.body);
    Blog.findByIdAndUpdate(req.params.id, req.body, (err, updatedBlog)=>{
       if(err){
@@ -278,7 +290,7 @@ app.put("/feature/blog/edit/:id", (req, res)=>{
    });
 });
 
-app.delete("/feature/blog/delete/:id", (req, res)=>{
+app.delete("/feature/blog/delete/:id", isLoggedIn, (req, res)=>{
 	Blog.findByIdAndRemove(req.params.id, (err)=>{
 		if(err)
 			res.redirect("/feature/blog/home");
@@ -305,7 +317,7 @@ app.get("/feature/forum/home", (req, res)=>{
 
 });
 
-app.get("/feature/forum/new", isMenteeLoggedIn, (req, res)=>{
+app.get("/feature/forum/new", isLoggedIn, (req, res)=>{
     res.render("./forum/new.ejs");
 });
 
@@ -329,7 +341,7 @@ app.post("/feature/forum/new", (req, res)=>{
 	});
 });
 
-app.get("/feature/forum/show/:id", (req,res)=>{
+app.get("/feature/forum/show/:id", isLoggedIn, (req,res)=>{
     Forum.findById(req.params.id).populate("comments").exec(function(err, foundForum){
         if(err){
             console.log(err);
@@ -341,7 +353,7 @@ app.get("/feature/forum/show/:id", (req,res)=>{
     });
 });
 
-app.delete("/feature/forum/delete/:id", (req, res)=>{
+app.delete("/feature/forum/delete/:id", isLoggedIn, (req, res)=>{
 	Forum.findByIdAndRemove(req.params.id, (err)=>{
 		if(err)
 			res.redirect("back");
@@ -351,7 +363,7 @@ app.delete("/feature/forum/delete/:id", (req, res)=>{
 	});
 });
 
-app.get("/feature/forum/show/:id/comment/new", (req, res)=>{
+app.get("/feature/forum/show/:id/comment/new", isLoggedIn, (req, res)=>{
     Forum.findById(req.params.id, (err, foundData)=>{
         if(err){
             console.log(err);
@@ -362,7 +374,7 @@ app.get("/feature/forum/show/:id/comment/new", (req, res)=>{
     })
 });
 
-app.post("/feature/forum/show/:id/comment/new", (req, res)=>{
+app.post("/feature/forum/show/:id/comment/new", isLoggedIn, (req, res)=>{
     Forum.findById(req.params.id, function(err, forum){
         if(err){
             console.log(err);
@@ -384,7 +396,7 @@ app.post("/feature/forum/show/:id/comment/new", (req, res)=>{
     });
 });
 
-app.get("/feature/forum/show/:fid/comment/:id/edit", (req,res)=>{
+app.get("/feature/forum/show/:fid/comment/:id/edit", isLoggedIn, (req,res)=>{
     Comment.findById(req.params.id, (err, foundComment)=>{
         if(err){
             res.redirect("back");
@@ -394,7 +406,7 @@ app.get("/feature/forum/show/:fid/comment/:id/edit", (req,res)=>{
      });
 })
 
-app.put("/feature/forum/show/:fid/comment/:id/edit", (req, res)=>{
+app.put("/feature/forum/show/:fid/comment/:id/edit", isLoggedIn, (req, res)=>{
     Comment.findByIdAndUpdate(req.params.id, req.body.comment, function(err, updatedComment){
        if(err){
         //    res.redirect("/feature/forum/show/"+req.params.fid);
@@ -405,7 +417,7 @@ app.put("/feature/forum/show/:fid/comment/:id/edit", (req, res)=>{
     });
  });
 
- app.delete("/feature/forum/show/:fid/comment/delete/:id", (req, res)=>{
+ app.delete("/feature/forum/show/:fid/comment/delete/:id", isLoggedIn, (req, res)=>{
 	Comment.findByIdAndRemove(req.params.id, (err)=>{
 		if(err)
 			res.redirect("back");
@@ -415,25 +427,26 @@ app.put("/feature/forum/show/:fid/comment/:id/edit", (req, res)=>{
 	});
 });
 
-function isMenteeLoggedIn(req, res, next){
-    if(req.isAuthenticated()){
-        return next();
-    }
-    res.redirect("/mentee/login");
-};
+app.get("/feature/apprentice/idea", (req, res)=>{
+    res.render("ideaForm.ejs");
+});
 
-function isMentorLoggedIn(req, res, next){
-    if(req.isAuthenticated()){
-        return next();
-    }
-    res.redirect("/mentor/login");
-};
+app.post("/feature/apprentice/idea", (req, res)=>{
+    Apprentice.create(req.body, (err, newData)=>{
+		if(err)
+			console.log("ERROR");
+		else{
+			res.redirect("/home");
+		}
+	});
+});
+
 
  function isLoggedIn(req, res, next){
      if(req.isAuthenticated()){
          return next();
      }
-     res.redirect("/mentee/login");
+     res.redirect("/login");
  };
 
 var port = process.env.PORT || 3000;

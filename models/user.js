@@ -4,6 +4,7 @@ let mongoose=require("mongoose"),
 let userSchema= new mongoose.Schema({
 	username:String,
     password:String,
+    type: String,
     basic: {
         companyName: String,
         ceoName: String,
