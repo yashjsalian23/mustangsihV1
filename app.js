@@ -330,14 +330,25 @@ app.post("/feature/forum/new", (req, res)=>{
 });
 
 app.get("/feature/forum/show/:id", (req,res)=>{
-    Forum.findById(req.params.id, (err, foundForum)=>{
+    Forum.findById(req.params.id).populate("comments").exec(function(err, foundForum){
         if(err){
             console.log(err);
         }
         else{
+            
             res.render("./forum/show.ejs", {forum: foundForum});
         }
     });
+});
+
+app.delete("/feature/forum/delete/:id", (req, res)=>{
+	Forum.findByIdAndRemove(req.params.id, (err)=>{
+		if(err)
+			res.redirect("back");
+		else
+			res.redirect("/feature/forum/home");
+			
+	});
 });
 
 app.get("/feature/forum/show/:id/comment/new", (req, res)=>{
@@ -371,7 +382,38 @@ app.post("/feature/forum/show/:id/comment/new", (req, res)=>{
          });
         }
     });
+});
+
+app.get("/feature/forum/show/:fid/comment/:id/edit", (req,res)=>{
+    Comment.findById(req.params.id, (err, foundComment)=>{
+        if(err){
+            res.redirect("back");
+        } else {
+          res.render("./forum/editComment.ejs", {forumId: req.params.fid, comment: foundComment});
+        }
+     });
 })
+
+app.put("/feature/forum/show/:fid/comment/:id/edit", (req, res)=>{
+    Comment.findByIdAndUpdate(req.params.id, req.body.comment, function(err, updatedComment){
+       if(err){
+        //    res.redirect("/feature/forum/show/"+req.params.fid);
+        console.log(err);
+       } else {
+           res.redirect("/feature/forum/show/" + req.params.fid );
+       }
+    });
+ });
+
+ app.delete("/feature/forum/show/:fid/comment/delete/:id", (req, res)=>{
+	Comment.findByIdAndRemove(req.params.id, (err)=>{
+		if(err)
+			res.redirect("back");
+		else
+			res.redirect("/feature/forum/show/"+req.params.fid);
+			
+	});
+});
 
 function isMenteeLoggedIn(req, res, next){
     if(req.isAuthenticated()){

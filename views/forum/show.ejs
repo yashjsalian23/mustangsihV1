@@ -14,7 +14,7 @@
                 </div>
                 <%if(currentUser && forum.author.id.equals(currentUser._id)){%>
                     <a href="#" class="btn btn-primary">Edit</a>
-                    <form id="delete-form" action="/feature/forum/delete/<%=forum._id%> %>?_method=DELETE" method="POST">
+                    <form id="delete-form" action="/feature/forum/delete/<%=forum._id%>?_method=DELETE" method="POST">
                             <button class="btn  btn-danger">Delete</button>
                     </form>
                 <%}%>
@@ -29,17 +29,17 @@
                 <a class="btn btn-inverse" href="/feature/forum/show/<%=forum._id%>/comment/new">Add New Comment</a>
             </div>
             <hr>
-            <% forum.comments.forEach(function(comment){ console.log(comment)%>
+            <% forum.comments.forEach(function(comment){%>
                 <div class="row">
                     <div class="col-md-12">
-                        <strong><%= comment.author.username %></strong>
+                        <strong> <%=comment.author.username %></strong>
                         <p>
                             <%=comment.title%>
                         </p>
                         <%if(currentUser && comment.author.id.equals(currentUser._id) ){%>
                         <a class="btn btn-xs btn-primary" 
-                           href="#">Edit</a>
-                        <form id="delete-form" action="#" method="POST">
+                           href="/feature/forum/show/<%=forum._id%>/comment/<%=comment._id%>/edit">Edit</a>
+                        <form id="delete-form" action="/feature/forum/show/<%=forum._id%>/comment/delete/<%=comment._id%>?_method=DELETE" method="POST">
                             <input type="submit" class="btn btn-xs btn-danger" value="Delete">
                         </form>
                         <%}%>
