@@ -29,6 +29,23 @@
                 <a class="btn btn-inverse" href="/feature/forum/show/<%=forum._id%>/comment/new">Add New Comment</a>
             </div>
             <hr>
+            <% forum.comments.forEach(function(comment){ console.log(comment)%>
+                <div class="row">
+                    <div class="col-md-12">
+                        <strong><%= comment.author.username %></strong>
+                        <p>
+                            <%=comment.title%>
+                        </p>
+                        <%if(currentUser && comment.author.id.equals(currentUser._id) ){%>
+                        <a class="btn btn-xs btn-primary" 
+                           href="#">Edit</a>
+                        <form id="delete-form" action="#" method="POST">
+                            <input type="submit" class="btn btn-xs btn-danger" value="Delete">
+                        </form>
+                        <%}%>
+                    </div>
+                </div>
+            <% }) %>
         </div>
     </div>
 <%- include("../partials/footer") %>

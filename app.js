@@ -10,7 +10,8 @@ let express                 = require("express"),
     Mentor                  = require ("./models/mentor"),
     User                    = require ("./models/user"),
     Blog                    = require ("./models/blog"),
-    Forum                   = require ("./models/forum");
+    Forum                   = require ("./models/forum"),
+    Comment                 = require ("./models/comment");
 
     mongoose.connect("mongodb://localhost/sih");
     // useNewUrlParser: true,
@@ -350,7 +351,27 @@ app.get("/feature/forum/show/:id/comment/new", (req, res)=>{
     })
 });
 
-
+app.post("/feature/forum/show/:id/comment/new", (req, res)=>{
+    Forum.findById(req.params.id, function(err, forum){
+        if(err){
+            console.log(err);
+        } else {
+         Comment.create(req.body.comment, function(err, comment){
+            if(err){
+                console.log(err);
+            } else {
+                console.log(req.user.username);
+                comment.author.id = req.user._id;
+                comment.author.username = req.user.username;
+                comment.save();
+                forum.comments.push(comment);
+                forum.save();
+                res.redirect('/feature/forum/show/' + forum._id);
+            }
+         });
+        }
+    });
+})
 
 function isMenteeLoggedIn(req, res, next){
     if(req.isAuthenticated()){
