@@ -125,14 +125,10 @@
    }
 </style>
 <div class="contain">
-
     <div class="wrapper">
       <div class="contacts">
         <h1>Ask a Question</h1>
-  
-        
       </div>
-  
       <div class="form">
         <h3>New Discussion</h3>
         <form action="/feature/forum/new" method="POST">
@@ -140,11 +136,11 @@
             <label >Title</label>
             <input type="text"   placeholder="Title" name="title" class="form-control" required autofocus>
           </p>
-          <p class="full-width">
+          <!-- <p class="full-width">
             <label >Created By:</label>
             <input type="text"   name="author[id]" value="<%=currentUser._id%>" class="form-control" readonly required>
-          </p>
-          <!-- <p class="full-width">
+          </p> -->
+          <p class="full-width">
             <label >Category</label>
             <select class="form-control" placeholder="Domain" name="domain" required >
                 <option>Consumer Internet</option>
@@ -153,7 +149,7 @@
                 <option>Finance</option>
                 <option>Healthcare</option>
                 <option>Other</option>
-            </select>          </p> -->
+            </select>          </p>
           <p class="full-width">
             <label >Body</label>
             <textarea placeholder="Start Typing..." rows="30" name="body" class="form-control" required></textarea>
@@ -166,8 +162,8 @@
     </div>
   </div>
 
-</div> 
+<!-- </div> 
 </form> 
-</div> 
+</div>  -->
 
 <%- include("../partials/footer") %>

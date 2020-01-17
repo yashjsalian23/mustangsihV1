@@ -7,10 +7,10 @@ let express                 = require("express"),
     passportLocalMongoose   = require ("passport-local-mongoose"),
     passport                = require("passport"),
     expressSanitizer        = require("express-sanitizer"),
-    User                    = require ("./models/user"),
     Mentor                  = require ("./models/mentor"),
+    User                    = require ("./models/user"),
     Blog                    = require ("./models/blog"),
-    Fourm                   = require ("./models/forum");
+    Forum                   = require ("./models/forum");
 
     mongoose.connect("mongodb://localhost/sih");
     // useNewUrlParser: true,
@@ -27,21 +27,28 @@ app.use(require("express-session")({
 	resave:false,
 	saveUninitialized: false
 }));
-
 passport.use('userLocal', new localStrategy(User.authenticate()));
+
+// app.use(require("express-session")({
+// 	secret: "Ia",
+// 	resave:false,
+// 	saveUninitialized: false
+// }));
 passport.use('mentorLocal', new localStrategy(Mentor.authenticate()));
 
 passport.serializeUser(User.serializeUser(), Mentor.serializeUser());
 passport.deserializeUser(User.deserializeUser(), Mentor.deserializeUser());
  app.use(passport.initialize());
  app.use(passport.session());
+
 app.use(expressSanitizer());
 
-app.use(function(req, res, next){
+app.use((req, res, next)=>{
     res.locals.currentUser = req.user;
-    console.log(res.locals);
+    // console.log(req.user);
     next();
  });
+
  
 //  app.use(function(req, res, next){
 //     res.locals.currentUser = req.mentor;
@@ -118,10 +125,10 @@ app.get("/mentee/profile/edit/:id", (req,res)=>{
     })
 });
 
-app.put("/mentee/profile/edit/:id", function(req, res){
+app.put("/mentee/profile/edit/:id", (req, res)=>{
      req.body.body = req.sanitize(req.body.body);
      req.body.abstract = req.sanitize(req.body.abstract);
-   User.findByIdAndUpdate(req.params.id, req.body, function(err, updatedBlog){
+   User.findByIdAndUpdate(req.params.id, req.body, (err, updatedBlog)=>{
       if(err){
           res.redirect("/mentee/profile/edit/"+req.params.id);
       }  else {
@@ -154,13 +161,13 @@ app.get("/mentor/register", (req,res)=>{
             domain:req.body.domain,
             description: req.body.description
          });
-         Mentor.register(newMentor, req.body.password, function(err, user){
+         Mentor.register(newMentor, req.body.password, (err, user)=>{
              if(err){
                  console.log(err);
                  res.redirect("/mentor/register");
              }
              else{
-                     passport.authenticate("mentorLocal")(req, res, function(){
+                     passport.authenticate("mentorLocal")(req, res, ()=>{
                      res.redirect("/home");
                  });
              }
@@ -194,9 +201,9 @@ app.get("/mentor/profile/edit/:id", (req,res)=>{
     })
 });
 
-app.put("/mentor/profile/edit/:id", function(req, res){
+app.put("/mentor/profile/edit/:id", (req, res)=>{
     // req.body.blog.body = req.sanitize(req.body.blog.body);
-   Mentor.findByIdAndUpdate(req.params.id, req.body, function(err, updatedBlog){
+   Mentor.findByIdAndUpdate(req.params.id, req.body, (err, updatedBlog)=>{
       if(err){
           res.redirect("/mentor/profile/edit/"+req.params.id);
       }  else {
@@ -211,19 +218,17 @@ app.get("/feature/blog/home", (req, res)=>{
 			console.log("ERROR!!");
 		else{
 			res.render("./blog/home.ejs", {blogs:blogs});
-
 		}
 	});
     
 });
 
-app.get("/feature/blog/new", (req, res)=>{
+app.get("/feature/blog/new", isMentorLoggedIn,(req, res)=>{
     res.render("./blog/new.ejs");
 });
 
-app.post("/feature/blog/new", (req, res)=>{
-    
-    Blog.create(req.body, function(err, newData){
+app.post("/feature/blog/new", isMentorLoggedIn, (req, res)=>{
+    Blog.create(req.body, (err, newData)=>{
 		if(err)
 			console.log("ERROR");
 		else{
@@ -261,9 +266,9 @@ app.get("/feature/blog/edit/:id", (req, res)=>{
     })
 });
 
-app.put("/feature/blog/edit/:id", function(req, res){
+app.put("/feature/blog/edit/:id", (req, res)=>{
     // req.body.blog.body = req.sanitize(req.body.blog.body);
-   Blog.findByIdAndUpdate(req.params.id, req.body, function(err, updatedBlog){
+   Blog.findByIdAndUpdate(req.params.id, req.body, (err, updatedBlog)=>{
       if(err){
           res.redirect("/feature/blog/edit/"+req.params.id);
       }  else {
@@ -272,8 +277,8 @@ app.put("/feature/blog/edit/:id", function(req, res){
    });
 });
 
-app.delete("/feature/blog/delete/:id", function(req, res){
-	Blog.findByIdAndRemove(req.params.id, function(err){
+app.delete("/feature/blog/delete/:id", (req, res)=>{
+	Blog.findByIdAndRemove(req.params.id, (err)=>{
 		if(err)
 			res.redirect("/feature/blog/home");
 		else
@@ -282,16 +287,24 @@ app.delete("/feature/blog/delete/:id", function(req, res){
 	});
 });
 
-app.get("/profile/logout", function(req, res){
+app.get("/profile/logout", (req, res)=>{
     req.logout();
     res.redirect("/");
 });
 
 app.get("/feature/forum/home", (req, res)=>{
-    res.render("./forum/home.ejs");
+    Forum.find({}, (err, foundData)=>{
+        if(err){
+            console.log(err);
+        }
+        else{
+            res.render("./forum/home.ejs", {forums:foundData});
+        }
+    })
+
 });
 
-app.get("/feature/forum/new", (req, res)=>{
+app.get("/feature/forum/new", isMenteeLoggedIn, (req, res)=>{
     res.render("./forum/new.ejs");
 });
 
@@ -302,18 +315,63 @@ app.post("/feature/forum/new", (req, res)=>{
         author: {
             id: req.user._id,
             username: req.user.username
-        }
+        },
+        domain: req.body.domain
     };
-    Fourm.create(forumThread, function(err, newThread){
+    Forum.create(forumThread, function(err, newThread){
 		if(err)
 			console.log("ERROR");
 		else{
             // Blog.author.id = req.user._id;
-
 			res.redirect("/feature/forum/home");
 		}
 	});
 });
+
+app.get("/feature/forum/show/:id", (req,res)=>{
+    Forum.findById(req.params.id, (err, foundForum)=>{
+        if(err){
+            console.log(err);
+        }
+        else{
+            res.render("./forum/show.ejs", {forum: foundForum});
+        }
+    });
+});
+
+app.get("/feature/forum/show/:id/comment/new", (req, res)=>{
+    Forum.findById(req.params.id, (err, foundData)=>{
+        if(err){
+            console.log(err);
+        }
+        else{
+            res.render("./forum/newComment.ejs", {forum: foundData});
+        }
+    })
+});
+
+
+
+function isMenteeLoggedIn(req, res, next){
+    if(req.isAuthenticated()){
+        return next();
+    }
+    res.redirect("/mentee/login");
+};
+
+function isMentorLoggedIn(req, res, next){
+    if(req.isAuthenticated()){
+        return next();
+    }
+    res.redirect("/mentor/login");
+};
+
+ function isLoggedIn(req, res, next){
+     if(req.isAuthenticated()){
+         return next();
+     }
+     res.redirect("/mentee/login");
+ };
 
 var port = process.env.PORT || 3000;
 app.listen(port,  ()=> {

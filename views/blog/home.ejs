@@ -195,20 +195,20 @@
       <h1>BLOGS</h1>
       <a href="/feature/blog/new" class="btn btn-primary btn-lg active" role="button">New Blog</a>
     </div>
-    <div class="form">
-    <% blogs.forEach(function(blog){ %>
-        <div class="index-content">
-        <div class="card">
-            <img src="<%=blog.image%>">
-            <p> 
-                <h4><%=blog.title%></h4>
-            </p>
-            <p><%=blog.abstract%></p>
-            <a href="/feature/blog/show/<%=blog._id%>" class="blue-button">Read More</a>
-        </div>
+    <div>
+        <% blogs.forEach(function(blog){ %>
+            <div class="index-content">
+                <div class="card">
+                    <img src="<%=blog.image%>">
+                    <p> 
+                        <h4><%=blog.title%></h4>
+                    </p>
+                    <p><%=blog.abstract%></p>
+                    <a href="/feature/blog/show/<%=blog._id%>" class="blue-button">Read More</a>
+                </div>
+            </div>
+        <%})%> 
     </div>
-    <%})%> 
-</div>
 </div>    
             
 
