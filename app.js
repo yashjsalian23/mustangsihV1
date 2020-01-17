@@ -9,7 +9,8 @@ let express                 = require("express"),
     expressSanitizer        = require("express-sanitizer"),
     User                    = require ("./models/user"),
     Mentor                  = require ("./models/mentor"),
-    Blog                    = require ("./models/blog");
+    Blog                    = require ("./models/blog"),
+    Fourm                   = require ("./models/forum");
 
     mongoose.connect("mongodb://localhost/sih");
     // useNewUrlParser: true,
@@ -20,13 +21,13 @@ let express                 = require("express"),
     //     console.log('ERROR:', err.message);
     // });
 app.use(bodyParser.urlencoded({extended:true}));
-// mongoose.connect("mongodb://localhost/sih");
 app.use(methodOverride("_method"));
 app.use(require("express-session")({
 	secret: "I",
 	resave:false,
 	saveUninitialized: false
 }));
+
 passport.use('userLocal', new localStrategy(User.authenticate()));
 passport.use('mentorLocal', new localStrategy(Mentor.authenticate()));
 
@@ -34,17 +35,18 @@ passport.serializeUser(User.serializeUser(), Mentor.serializeUser());
 passport.deserializeUser(User.deserializeUser(), Mentor.deserializeUser());
  app.use(passport.initialize());
  app.use(passport.session());
-
-// passport.serializeUser(Mentor.serializeUser());
-// passport.deserializeUser();
-// app.use(passport.initialize());
-// app.use(passport.session());
 app.use(expressSanitizer());
 
 app.use(function(req, res, next){
     res.locals.currentUser = req.user;
+    console.log(res.locals);
     next();
  });
+ 
+//  app.use(function(req, res, next){
+//     res.locals.currentUser = req.mentor;
+//     next();
+//  });
 
 app.get("/", (req,res)=>{
     res.render("landing.ejs");
@@ -85,7 +87,7 @@ app.post("/mentee/register", (req,res)=>{
 		}
 		else{
 			passport.authenticate("userLocal")(req, res, ()=>{
-				res.redirect("/");
+				res.redirect("/home");
 			});
 		}
 	});
@@ -123,17 +125,13 @@ app.put("/mentee/profile/edit/:id", function(req, res){
       if(err){
           res.redirect("/mentee/profile/edit/"+req.params.id);
       }  else {
-          res.redirect("/");
+          res.redirect("/home");
       }
    });
 });
 
-app.get("/mentee/logout", function(req, res){
-	req.logout();
-	res.redirect("/");
-});
 
-app.get
+
 
 app.get("/mentor/login", (req,res)=>{
     res.render("./mentor/login.ejs");
@@ -145,9 +143,9 @@ app.get("/mentor/register", (req,res)=>{
 
 
  app.post("/mentor/register", (req,res)=>{
-         console.log(req.body.username);
-         console.log(req.body.password);
-         let newMentor = new Mentor({
+    console.log(req.body.username);
+    console.log(req.body.password);
+    let newMentor = new Mentor({
             username: req.body.username,
             basic: req.body.basic,
             contact: req.body.contact,
@@ -170,14 +168,11 @@ app.get("/mentor/register", (req,res)=>{
      });
 
   app.post("/mentor/login", passport.authenticate("mentorLocal", {
-         successRedirect: "/",
+         successRedirect: "/home",
          failureRedirect:"/mentor/login"
      }) ,(req, res)=>{});
 
-app.get("/mentor/logout", function(req, res){
-        req.logout();
-        res.redirect("/");
-    });
+
 
 app.get("/mentor/profile/:id", (req,res)=>{
     Mentor.findById(req.params.id, (err, foundUser)=>{
@@ -227,10 +222,18 @@ app.get("/feature/blog/new", (req, res)=>{
 });
 
 app.post("/feature/blog/new", (req, res)=>{
-    Blog.create(req.body, function(err, newBlog){
+    
+    Blog.create(req.body, function(err, newData){
 		if(err)
 			console.log("ERROR");
 		else{
+            // Blog.author.id = req.user._id;
+            // Blog.author.username = req.user._id;
+            Blog.author = {
+                id: req.user._id,
+                username: req.user.username
+            }
+            Blog.push(Blog.author);
 			res.redirect("/feature/blog/home");
 		}
 	});
@@ -278,7 +281,39 @@ app.delete("/feature/blog/delete/:id", function(req, res){
 			
 	});
 });
-        
+
+app.get("/profile/logout", function(req, res){
+    req.logout();
+    res.redirect("/");
+});
+
+app.get("/feature/forum/home", (req, res)=>{
+    res.render("./forum/home.ejs");
+});
+
+app.get("/feature/forum/new", (req, res)=>{
+    res.render("./forum/new.ejs");
+});
+
+app.post("/feature/forum/new", (req, res)=>{
+    let forumThread = {
+        title: req.body.title,
+        body: req.body.body,
+        author: {
+            id: req.user._id,
+            username: req.user.username
+        }
+    };
+    Fourm.create(forumThread, function(err, newThread){
+		if(err)
+			console.log("ERROR");
+		else{
+            // Blog.author.id = req.user._id;
+
+			res.redirect("/feature/forum/home");
+		}
+	});
+});
 
 var port = process.env.PORT || 3000;
 app.listen(port,  ()=> {

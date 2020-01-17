@@ -36,13 +36,13 @@
 					
 				</div>
 				<div class="nav navbar-nav navbar-right">
-					<!-- <% if(!currentUser){ %> -->
+					<% if(!currentUser){ %>
 						<li><a href="#">Register </a></li>
 						<li><a href="#">Login </a></li>
-					<!-- <% }else{ %> -->
-						<li><a href="#">Welcome, </a></li>
-						<li><a href="#">Logout </a></li>
-					<!-- <% } %> -->
+					<% }else{ %>
+						<li><a href="#">Welcome, <%=currentUser.username%> </a></li>
+						<li><a href="/profile/logout">Logout </a></li>
+					<% } %>
 				</div>
 				</div>
 		</div>

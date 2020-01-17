@@ -1,5 +1,4 @@
 <%- include("../partials/header") %>
-
 <style>
     * {
      box-sizing: border-box;
@@ -129,27 +128,23 @@
 
     <div class="wrapper">
       <div class="contacts">
-        <h1>New Blog</h1>
+        <h1>Ask a Question</h1>
   
         
       </div>
   
       <div class="form">
-        <h3>New Blog</h3>
-        <form action="#" method="POST">
+        <h3>New Discussion</h3>
+        <form action="/feature/forum/new" method="POST">
           <p class="full-width">
             <label >Title</label>
             <input type="text"   placeholder="Title" name="title" class="form-control" required autofocus>
           </p>
           <p class="full-width">
-            <label >Image URL</label>
-            <input type="text"  placeholder="Image url" name="image" class="form-control" required>
-          </p>
-          <!-- <p class="full-width">
             <label >Created By:</label>
             <input type="text"   name="author[id]" value="<%=currentUser._id%>" class="form-control" readonly required>
-          </p> -->
-          <p class="full-width">
+          </p>
+          <!-- <p class="full-width">
             <label >Category</label>
             <select class="form-control" placeholder="Domain" name="domain" required >
                 <option>Consumer Internet</option>
@@ -158,11 +153,7 @@
                 <option>Finance</option>
                 <option>Healthcare</option>
                 <option>Other</option>
-            </select>          </p>
-          <p class="full-width">
-            <label >Abstract</label>
-            <textarea placeholder="Abstract" rows="2" name="abstract" class="form-control" required></textarea>
-          </p>
+            </select>          </p> -->
           <p class="full-width">
             <label >Body</label>
             <textarea placeholder="Start Typing..." rows="30" name="body" class="form-control" required></textarea>
@@ -175,10 +166,8 @@
     </div>
   </div>
 
-</div> <!-- /.form-group -->
-</form> <!-- /form -->
-</div> <!-- ./container -->
-
+</div> 
+</form> 
+</div> 
 
 <%- include("../partials/footer") %>
-
