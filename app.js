@@ -441,6 +441,10 @@ app.post("/feature/apprentice/idea", (req, res)=>{
 	});
 });
 
+app.get("/feature/analysis", (req, res)=>{
+    res.render("analysis.ejs");
+})
+
 
  function isLoggedIn(req, res, next){
      if(req.isAuthenticated()){
