@@ -302,7 +302,7 @@ app.delete("/feature/blog/delete/:id", isLoggedIn, (req, res)=>{
 
 app.get("/profile/logout", (req, res)=>{
     req.logout();
-    res.redirect("/");
+    res.redirect("/home");
 });
 
 app.get("/feature/forum/home", (req, res)=>{
