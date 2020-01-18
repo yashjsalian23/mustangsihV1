@@ -50,8 +50,6 @@ app.use(expressSanitizer());
 
 app.use((req, res, next)=>{
     res.locals.currentUser = req.user;
-    res.locals.error = req.flash("error");
-    res.locals.success = req.flash("success");
     // console.log(req.user);
     next();
  });
@@ -247,11 +245,11 @@ app.post("/feature/blog/new", isLoggedIn, (req, res)=>{
 		else{
             // Blog.author.id = req.user._id;
             // Blog.author.username = req.user._id;
-            Blog.author = {
-                id: req.user._id,
-                username: req.user.username
-            }
-            Blog.push(Blog.author);
+            // newData.author = {
+            //     id: req.user._id,
+            //     username: req.user.username
+            // }
+            // newData.push(newData.author);
 			res.redirect("/feature/blog/home");
 		}
 	});
@@ -450,7 +448,7 @@ app.get("/feature/analysis", (req, res)=>{
      if(req.isAuthenticated()){
          return next();
      }
-     res.redirect("/login");
+     res.redirect("/mentee/login");
  };
 
 var port = process.env.PORT || 3000;

@@ -1,7 +1,7 @@
 <%- include("../partials/header") %>
     <div class="container">
         <form class="form-horizontal" action="/mentee/profile/edit/<%=user._id %>?_method=PUT" method="POST">
-            <h2>Register</h2>
+            <h2>Edit</h2>
             <div class="form-group">
                 <label  class="col-sm-3 control-label">Username: </label>
                 <div class="col-sm-9">
@@ -54,7 +54,7 @@
             <div class="form-group">
                 <label  class="col-sm-3 control-label">Description: </label>
                 <div class="col-sm-9">
-                    <textarea placeholder="Description" rows="4" name="description[bio]" value="<%= user.description.bio %>" class="form-control" required></textarea>
+                    <textarea placeholder="Description" rows="4" name="description[bio]" class="form-control" required><%= user.description.bio %></textarea>
                     
                 </div>
             </div>

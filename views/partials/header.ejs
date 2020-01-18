@@ -16,6 +16,11 @@
 		.form-inline{
 			margin-top: 7px;
 		}
+		/* .navbar-brand>img{
+			max-width: 5%;
+			padding-top: 0.1px;
+			/* float: left; */
+		} */
 	</style>
 	<title> Prarambh </title>
 </head>
@@ -31,14 +36,17 @@
 				</button>
 		
 				<div class="navbar-header">
-					<a href="/" class="navbar-brand">Prarambh</a>
+					<a href="/home" class="navbar-brand">Prarambh</a>
 				</div>
 				<div class="collapse navbar-collapse" id="collapse-this">
 		
 				<div class="nav navbar-nav"> 
-					<li><a href="feature/blog/home"> Blog</a></li>
+					<li><a href="/feature/blog/home"> Blog</a></li>
 					<li><a href="/feature/forum/home">Forum</a></li>
 					<li><a href="/feature/analysis">Analysis</a></li>
+					<% if(currentUser){ %>
+					<li><a href="#">Find a Mentor</a></li>
+					<% } %>
 				</div>
 				<div class="nav navbar-nav navbar-right">
 					<li>
@@ -53,8 +61,7 @@
 						<li><a href="/register">Register </a></li>
 						<li><a href="/login">Login </a></li>
 					<% }else{ %>
-						<%type=currentUser.type%>
-						<li><a href="/<%=type%>/profile/<%=currentUser._id%>">Welcome, <%=currentUser.username%> </a></li>
+						<li><a href="/mentee/profile/<%=currentUser._id%>">Welcome, <%=currentUser.username%> </a></li>
 						<li><a href="/profile/logout">Logout </a></li>
 					<% } %>
 				</div>
